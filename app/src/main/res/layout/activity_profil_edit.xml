@@ -1,0 +1,247 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.account.ProfilEditActivity">
+
+        <include
+            android:id="@+id/header"
+            layout="@layout/layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    <!-- Barre de recherche -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/bottomMenu"
+
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+
+
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/card_background"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/searchIcon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_prev_a2_green" />
+                <!-- Barre de recherche -->
+                <TextView
+                    android:id="@+id/searchBar"
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/profile"
+                    android:textStyle="bold"
+
+                    android:textColor="@color/green_a"
+                    android:shadowColor="@color/green_a"
+
+                    android:padding="10dp"
+                    android:textColorHint="@color/white" />
+
+                <!-- Icône utilisateur -->
+                <ImageView
+                    android:id="@+id/searchIcon"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_chercher_green" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
+        android:id="@+id/bottomMenu1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/bottomMenu"
+        android:padding="20dp">
+
+
+        <LinearLayout
+            android:layout_width="45dp"
+            android:layout_height="115dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="123dp"
+                android:layout_height="118dp"
+                android:background="@drawable/rounded_shadow_background"
+
+                android:src="@drawable/im_profile" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="115dp"
+                android:layout_weight="1"
+                android:background="@drawable/card_background"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dave Jackson"
+
+                        android:textColor="@color/black"
+                        android:textStyle="bold"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_adresse_2_black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bordeaux, 33310"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_adresse_2_black"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+33 67 28 33 95"/>
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomMenu2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/bottomMenu1"
+            android:padding="50dp">
+
+            <!-- Contenu du menu inférieur -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/addressButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/ic_adresse_white"
+                    android:text="@string/address"
+
+                    android:background="@drawable/button_selector"
+                    />
+
+                <Button
+                    android:id="@+id/emailButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/ic_mail_white"
+                    android:text="Email"
+                    android:background="@drawable/button_selector"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/card_background"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/plant1Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/ic_plante_en_pot_white"
+                    android:text="Plant 1"
+                    android:background="@drawable/button_selector"/>
+
+                <Button
+                    android:id="@+id/plant2Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/ic_plante_en_pot_white"
+                    android:text="Plant 2"
+                    android:background="@drawable/button_selector"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+</RelativeLayout>
