@@ -1,3 +1,50 @@
 <resources>
-    <string name="app_name">PC-EPSI-MSPR-APP</string>
+    <string name="app_name">TP1-EPSI-MSPR-App</string>
+    <string name="map_icon">Map</string>
+    <string name="camera_desc">description</string>
+    <string name="cam">Identifier</string>
+    <string name="acceuil">Acceuil</string>
+    <string name="message">Message</string>
+    <string name="plantes">Plantes</string>
+    <string name="account">Account</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="usernameLabel">Nom d\'utilisateur</string>
+    <string name="usernamHint">arasaje108</string>
+    <string name="passwordLabel">Mot de passe</string>
+    <string name="passwordHint">*********</string>
+    <string name="btnLoginText">Se connecter</string>
+    <string name="registerText">Créer un compte</string>
+    <string name="title_activity_liste_botaniste">ListeBotanisteActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_details_botaniste">DetailsBotanisteActivity</string>
+    <string name="logout">Se déconnecter</string>
+    <string name="delete_account">Supprimer le compte</string>
+    <string name="edit_account">Modifier le compte</string>
+    <string name="profile_image">image de profil</string>
+    <string name="address">Address</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="profile">Profile</string>
 </resources>

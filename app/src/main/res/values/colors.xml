@@ -7,4 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+    <color name="green_a">#505021</color>
+    <color name="green">#505021</color>
+    <color name="headers">#505021</color>
+
+        <color name="green_theme">#00FF00</color> <!-- Replace with your desired shade of green -->
+        <color name="green_light">#66FF66</color> <!-- Replace with a lighter shade of green -->
+        <color name="green_dark">#00CC00</color>
+    <color name="Deep_Ocean_Blue">#2196F3</color> <!-- Replace with a darker shade of green -->
+
 </resources>

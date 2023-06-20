@@ -1,0 +1,13 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="600dp"
+    android:height="200dp"
+    android:viewportWidth="600"
+    android:viewportHeight="200">
+
+    <path
+        android:pathData="M0,0 C300,100 300,100 600,0 L600,200 L0,200 Z"
+        android:fillColor="#87CEEB" />
+
+    <!-- Autres éléments graphiques pour représenter les plantes en bas -->
+
+</vector>
