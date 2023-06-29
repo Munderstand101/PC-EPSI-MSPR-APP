@@ -10,7 +10,7 @@
     <ImageView
             android:id="@+id/logo"
             android:layout_width="265dp"
-            android:layout_height="238dp"
+            android:layout_height="220dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="50dp"
