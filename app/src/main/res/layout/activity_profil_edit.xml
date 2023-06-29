@@ -4,11 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.account.ProfilEditActivity">
 
-        <include
-            android:id="@+id/header"
-            layout="@layout/layout_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
 
 
     <!-- Barre de recherche -->

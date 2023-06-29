@@ -55,9 +55,6 @@ class MainActivity : BaseActivity() {
 
         // Set the default fragment
         replaceFragment(AcceuilFragment())
-          setHeaderTxt("Menu")
-         showBack()
-          showRight()
     }
 
     private fun replaceFragment(fragment: Fragment) {

@@ -5,11 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".fragments.AccountFragment">
 
-    <include
-        android:id="@+id/header"
-        layout="@layout/layout_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"

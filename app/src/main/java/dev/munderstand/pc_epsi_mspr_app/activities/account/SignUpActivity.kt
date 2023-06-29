@@ -37,8 +37,6 @@ class SignUpActivity : AppCompatActivity() {
         usernameEditText = findViewById(R.id.usernameEditText)
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
-        latitudeEditText = findViewById(R.id.latitudeEditText)
-        longitudeEditText = findViewById(R.id.longitudeEditText)
         cityEditText = findViewById(R.id.cityEditText)
         zipcodeEditText = findViewById(R.id.zipcodeEditText)
         addressEditText = findViewById(R.id.addressEditText)
