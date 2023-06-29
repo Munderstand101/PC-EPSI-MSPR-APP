@@ -19,11 +19,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-
-
-
+        
         bottomNavigationView = findViewById(R.id.navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -50,9 +46,6 @@ class MainActivity : BaseActivity() {
                 else -> false
             }
         }
-
-
-
         // Set the default fragment
         replaceFragment(AcceuilFragment())
     }

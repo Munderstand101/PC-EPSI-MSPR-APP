@@ -1,6 +1,6 @@
 package dev.munderstand.pc_epsi_mspr_app.activities.common
 
-class piConfig {
+class ApiConfig {
     companion object {
         const val BASE_URL = "http://88.125.155.66:32768/api"
         const val LOGIN_ENDPOINT = "$BASE_URL/login_check"
