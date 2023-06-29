@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import dev.munderstand.pc_epsi_mspr_app.R
@@ -41,36 +42,23 @@ class AcceuilFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_acceuil, container, false)
 
-        val addressButton: Button = view.findViewById(R.id.addressButton)
-        val emailButton: Button = view.findViewById(R.id.emailButton)
-        val plant1Button: Button = view.findViewById(R.id.plant1Button)
-        val plant2Button: Button = view.findViewById(R.id.plant2Button)
+        val messagesButton = view.findViewById<Button>(R.id.messagesButton)
+        val newRequestButton = view.findViewById<Button>(R.id.newRequestButton)
+        val getRequestsButton = view.findViewById<Button>(R.id.getRequestsButton)
 
-        addressButton.setOnClickListener {
-            changeFragment(BotanistesFragment())
+        val myScrollView = view.findViewById<ScrollView>(R.id.scrollView)
+        myScrollView.scrollToDescendant(getRequestsButton)
+
+        messagesButton.setOnClickListener {
+
         }
 
-        emailButton.setOnClickListener {
-            changeFragment(RechercheBotanistFragment())
+        newRequestButton.setOnClickListener {
+
         }
 
-        plant1Button.setOnClickListener {
-            changeFragment(MapFragment())
-        }
+        getRequestsButton.setOnClickListener {
 
-        plant2Button.setOnClickListener {
-            changeFragment(AccountFragment())
-        }
-
-
-        val searchBar = view.findViewById<EditText>(R.id.searchBar)
-        searchBar.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val searchText = searchBar.text.toString()
-                performSearch(searchText)
-                return@setOnEditorActionListener true
-            }
-            return@setOnEditorActionListener false
         }
 
         return view
