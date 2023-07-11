@@ -52,13 +52,35 @@
             app:layout_constraintTop_toTopOf="parent"
             app:pressedTranslationZ="0dp" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/zoom_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="208dp"
+            android:contentDescription="Zoom In"
+            android:src="@drawable/ic_zoom_in"
+            app:fabCustomSize="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/zoom_out_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="280dp"
+            android:contentDescription="Zoom Out"
+            android:src="@drawable/ic_zoom_out"
+            app:fabCustomSize="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <RelativeLayout
             android:id="@+id/nearby_codes_relative_layout"
             android:layout_width="260dp"
             android:layout_height="300dp"
 
             android:background="@drawable/flat_radius_shape"
-
+            android:visibility="gone"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

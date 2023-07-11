@@ -1,3 +1,4 @@
+
 package dev.munderstand.pc_epsi_mspr_app.fragments
 
 import android.Manifest
@@ -5,40 +6,46 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ListView
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-
 import com.android.volley.Request
-import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import dev.munderstand.pc_epsi_mspr_app.R
-import org.json.JSONObject
+import com.google.android.gms.maps.model.*
 
-private const val STORES_URL = "https://www.ugarit.online/epsi/stores.json"
+import com.google.maps.android.clustering.Cluster
+import com.google.maps.android.clustering.view.DefaultClusterRenderer
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.maps.android.clustering.ClusterManager
+import dev.munderstand.pc_epsi_mspr_app.R
+import dev.munderstand.pc_epsi_mspr_app.activities.BotanistDetailsActivity
+import dev.munderstand.pc_epsi_mspr_app.activities.MainActivity
+import dev.munderstand.pc_epsi_mspr_app.activities.common.ApiConfig
+import org.json.JSONException
+import org.json.JSONObject
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var googleMap: GoogleMap
-
     private lateinit var nearbyCodesLayout: RelativeLayout
     private lateinit var nearbyCodesListView: ListView
+    private lateinit var clusterManager: ClusterManager<MarkerClusterItem>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,12 +59,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         nearbyCodesLayout = view.findViewById(R.id.nearby_codes_relative_layout)
         nearbyCodesListView = view.findViewById(R.id.nearby_codes_listview)
 
-        view.findViewById<FloatingActionButton>(R.id.map_nearby_codes_button).setOnClickListener {
-            showNearbyCodesLayout()
+        view.findViewById<View>(R.id.map_nearby_codes_button).setOnClickListener {
+            val targetFragment = BotanistesFragment()
+
+            val mainActivity = requireActivity() as MainActivity
+            mainActivity.replaceFragment(targetFragment)
+            mainActivity.setHeaderTxt("Menu")
+            mainActivity.showBack()
+            mainActivity.showRight()
+            Toast.makeText(context, "map_nearby_codes_button", Toast.LENGTH_SHORT).show()
         }
 
-        view.findViewById<Button>(R.id.close_nearby_button).setOnClickListener {
+        view.findViewById<View>(R.id.map_search_button).setOnClickListener {
             hideNearbyCodesLayout()
+            Toast.makeText(context, "map_search_button", Toast.LENGTH_SHORT).show()
         }
 
         return view
@@ -65,27 +80,119 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         this.googleMap = googleMap
-     //   setupMap()
-        fetchStores()
+        setupMap()
+        fetchBotanists()
+        setupMarkerClickListener()
     }
 
-//    @SuppressLint("MissingPermission")
+    private fun getBitmapFromVectorDrawable(drawableId: Int): Bitmap {
+        val drawable = ContextCompat.getDrawable(requireContext(), drawableId)
+        val bitmap = Bitmap.createBitmap(
+            drawable!!.intrinsicWidth,
+            drawable.intrinsicHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        drawable.draw(canvas)
+        return bitmap
+    }
+
+    private fun fetchBotanists() {
+        val sharedPreferences = activity?.getSharedPreferences("account", Context.MODE_PRIVATE)
+        val accountInfo = sharedPreferences?.getString("accountInfo", "")
+        val token = sharedPreferences?.getString("token", "")
+
+        val botanistsRequest = object : JsonArrayRequest(
+            Request.Method.GET,
+            ApiConfig.BOTANIST_ENDPOINT,
+            null,
+            Response.Listener { response ->
+                try {
+                    val markerClusterItems = mutableListOf<MarkerClusterItem>()
+
+                    for (i in 0 until response.length()) {
+                        val botanist = response.getJSONObject(i)
+                        val name = botanist.getString("name")
+                        val address = botanist.getString("address")
+                        val longitude = botanist.getDouble("longitude")
+                        val latitude = botanist.getDouble("latitude")
+                        val location = LatLng(latitude, longitude)
+
+                        val markerClusterItem = MarkerClusterItem(location, name, address)
+                        markerClusterItems.add(markerClusterItem)
+                    }
+
+                    // Initialize cluster manager
+                    clusterManager = ClusterManager(requireContext(), googleMap)
+                    googleMap.setOnCameraIdleListener(clusterManager)
+                    googleMap.setOnMarkerClickListener(clusterManager)
+
+                    // Add cluster items to cluster manager
+                    clusterManager.addItems(markerClusterItems)
+
+                    // Set custom renderer for clustered markers
+                    val clusterRenderer = CustomClusterRenderer(requireContext(), googleMap, clusterManager)
+                    clusterManager.renderer = clusterRenderer
+
+                    // Zoom camera to show all markers
+                    val padding = resources.getDimensionPixelSize(R.dimen.map_padding)
+                    val builder = LatLngBounds.Builder()
+
+                    for (clusterItem in clusterManager.algorithm.items) {
+                        builder.include(clusterItem.position)
+                    }
+
+                    val bounds = builder.build()
+                    val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+                    googleMap.moveCamera(cameraUpdate)
+
+
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Toast.makeText(
+                        requireContext(),
+                        "Error parsing botanists data",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            },
+            Response.ErrorListener { error ->
+                Log.e(
+                    MapFragment::class.java.simpleName,
+                    "Error fetching botanists",
+                    error
+                )
+                Toast.makeText(
+                    requireContext(),
+                    "Error fetching botanists: ${error.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
+
+        val queue = Volley.newRequestQueue(requireContext())
+        queue.add(botanistsRequest)
+    }
+
+    @SuppressLint("MissingPermission")
     private fun setupMap() {
-        // Get the GoogleMap instance and perform necessary setup
-        val mapFragment = childFragmentManager.findFragmentById(R.id.google_map) as? SupportMapFragment
+        val mapFragment =
+            childFragmentManager.findFragmentById(R.id.google_map) as? SupportMapFragment
         mapFragment?.getMapAsync { googleMap ->
-            // Check if the location permission is granted
             if (ContextCompat.checkSelfPermission(
                     requireContext(),
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) == PackageManager.PERMISSION_GRANTED
             ) {
-                // Enable the "My Location" feature
                 googleMap.isMyLocationEnabled = true
-                // Additional map setup
-                // ...
             } else {
-                // Request the location permission
                 ActivityCompat.requestPermissions(
                     requireActivity(),
                     arrayOf(
@@ -96,70 +203,44 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 )
             }
         }
-    }
 
+        // Add the zoom in and zoom out buttons
+        val zoomInButton = view?.findViewById<FloatingActionButton>(R.id.zoom_in_button)
+        val zoomOutButton = view?.findViewById<FloatingActionButton>(R.id.zoom_out_button)
 
-    private fun fetchStores() {
-        val storesRequest = JsonObjectRequest(
-            Request.Method.GET,
-            STORES_URL,
-            null,
-            { response ->
-                val stores = response.getJSONArray("stores")
-                val builder = LatLngBounds.Builder()
+        zoomInButton?.setOnClickListener {
+            googleMap.animateCamera(CameraUpdateFactory.zoomIn())
+        }
 
-                for (i in 0 until stores.length()) {
-                    val store = stores.getJSONObject(i)
-                    val name = store.getString("name")
-                    val address = store.getString("address")
-                    val longitude = store.getDouble("longitude")
-                    val latitude = store.getDouble("latitude")
-                    val location = LatLng(latitude, longitude)
-                    val marker = googleMap.addMarker(
-                        MarkerOptions().position(location).title(name).snippet(address)
-                    )
-                    marker?.tag = store
-                    builder.include(location)
-
-                    googleMap.setOnInfoWindowClickListener { clickedMarker ->
-                        val store = clickedMarker.tag as? JSONObject
-                        if (store != null) {
-//                            val intent = Intent(requireContext(), StoreDetailsActivity::class.java)
-//                            intent.putExtra("store", store.toString())
-//                            startActivity(intent)
-                        }
-                    }
-                    marker?.showInfoWindow()
-                }
-
-                val bounds = builder.build()
-                val padding = resources.getDimensionPixelSize(R.dimen.map_padding)
-                val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
-                googleMap.moveCamera(cameraUpdate)
-            },
-            { error ->
-                Toast.makeText(
-                    requireContext(),
-                    "Error fetching stores: ${error.message}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        )
-
-        val queue = Volley.newRequestQueue(requireContext())
-        queue.add(storesRequest)
-    }
-
-    private fun showNearbyCodesLayout() {
-        nearbyCodesLayout.visibility = View.VISIBLE
+        zoomOutButton?.setOnClickListener {
+            googleMap.animateCamera(CameraUpdateFactory.zoomOut())
+        }
     }
 
     private fun hideNearbyCodesLayout() {
         nearbyCodesLayout.visibility = View.GONE
     }
 
+    private fun setupMarkerClickListener() {
+        googleMap.setOnInfoWindowClickListener { marker ->
+            val botanist = marker.tag as? JSONObject
+            if (botanist != null) {
+                val name = botanist.getString("name")
+                val specialization = botanist.getString("specialization")
+                val address = botanist.getString("address")
+                val pictureUrl = if (botanist.has("pictureUrl")) botanist.getString("pictureUrl") else ""
+
+                val intent = Intent(requireContext(), BotanistDetailsActivity::class.java)
+                intent.putExtra("name", name)
+                intent.putExtra("specialization", specialization)
+                intent.putExtra("address", address)
+                intent.putExtra("pictureUrl", pictureUrl)
+                startActivity(intent)
+            }
+        }
+    }
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
     }
-
 }
