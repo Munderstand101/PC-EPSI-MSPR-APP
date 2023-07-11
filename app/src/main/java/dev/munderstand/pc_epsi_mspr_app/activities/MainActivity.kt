@@ -60,7 +60,7 @@ class MainActivity : BaseActivity() {
           showRight()
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.content, fragment)
             .commit()
