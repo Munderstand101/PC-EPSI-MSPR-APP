@@ -88,27 +88,17 @@ class SignInActivity : AppCompatActivity() {
 
                     // Get account information
                     getAccountInfo(token)
-                    // Show a success message or perform any desired action
-                    runOnUiThread {
-                       // Toast.makeText(this@SignInActivity, "Login successful", Toast.LENGTH_SHORT).show()
-
-                        val intent = Intent(this@SignInActivity, MainActivity::class.java)
-                        startActivity(intent)
-                     //   Toast.makeText(this@SignInActivity, token, Toast.LENGTH_SHORT).show()
-                    }
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     runOnUiThread {
                         Toast.makeText(this@SignInActivity, "Failed to parse response", Toast.LENGTH_SHORT).show()
                     }
-                } finally {
                     // Enable the login button again
                     runOnUiThread {
                         loginButton.isEnabled = true
                     }
                 }
             }
-
         })
     }
 
@@ -117,7 +107,7 @@ class SignInActivity : AppCompatActivity() {
 
         val url = ApiConfig.ACCOUNT_ENDPOINT
 
-        val sharedPreferences = getSharedPreferences("account", Context.MODE_PRIVATE) // Move the declaration outside
+        val sharedPreferences = getSharedPreferences("account", Context.MODE_PRIVATE)
 
         val request = Request.Builder()
             .url(url)
@@ -138,7 +128,7 @@ class SignInActivity : AppCompatActivity() {
 
                 if (response.isSuccessful) {
                     try {
-                        val jsonResponse = JSONObject(responseBody)
+                        val jsonResponse = responseBody?.let { JSONObject(it) }
                         val accountInfo = jsonResponse.toString()
 
                         // Store the account information in shared preferences
@@ -148,8 +138,8 @@ class SignInActivity : AppCompatActivity() {
 
                         // Show a success message or perform any desired action
                         runOnUiThread {
-                            val accountInfo = sharedPreferences.getString("accountInfo", "")
-                            Toast.makeText(this@SignInActivity, accountInfo, Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                            startActivity(intent)
                         }
                     } catch (e: JSONException) {
                         e.printStackTrace()
@@ -165,7 +155,6 @@ class SignInActivity : AppCompatActivity() {
             }
         })
     }
-
 
     fun fRegister_Click(view: View) {
         val intent = Intent(this@SignInActivity, SignUpActivity::class.java)
