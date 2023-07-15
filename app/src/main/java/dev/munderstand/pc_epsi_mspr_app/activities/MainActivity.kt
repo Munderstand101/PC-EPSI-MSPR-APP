@@ -43,8 +43,8 @@ class MainActivity : BaseActivity() {
                     replaceFragment(PlantesFragment())
                     true
                 }
-                R.id.tabAccount -> {
-                    replaceFragment(AccountFragment())
+                R.id.tabChat -> {
+                    replaceFragment(ExploreFragment())
                     true
                 }
                 else -> false
@@ -55,12 +55,12 @@ class MainActivity : BaseActivity() {
 
         // Set the default fragment
         replaceFragment(AcceuilFragment())
-          setHeaderTxt("Menu")
-         showBack()
-          showRight()
+//          setHeaderTxt("Menu")
+//         showBack()
+//          showRight()
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.content, fragment)
             .commit()

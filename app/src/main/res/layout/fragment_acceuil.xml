@@ -1,157 +1,193 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.AcceuilFragment">
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/header"
-        layout="@layout/layout_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="265dp"
-        android:layout_height="238dp"
-        android:layout_below="@id/header"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-
-        android:layout_marginTop="-1dp"
-
-        android:contentDescription="Logo"
-        android:src="@drawable/logo_base" />
-
-
-    <!-- Barre de recherche -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/bottomMenu"
-
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-
-        android:layout_below="@id/logo"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/card_background"
-        android:elevation="4dp"
-        android:orientation="horizontal"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <!-- Barre de recherche -->
-            <EditText
-                android:id="@+id/searchBar"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_weight="1"
-                android:hint="Rechercher..."
-                android:textColor="@color/green_a"
-                android:shadowColor="@color/green_a"
-                android:inputType="text"
-                android:padding="10dp"
-                android:textColorHint="@color/white" />
-
-            <!-- Icône utilisateur -->
-            <ImageView
-                android:id="@+id/searchIcon"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/ic_chercher_green" />
-
-        </LinearLayout>
-
-    </androidx.appcompat.widget.Toolbar>
-
-
-
-    <LinearLayout
-        android:id="@+id/bottomMenu2"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/bottomMenu"
-        android:padding="50dp">
+        android:background="@color/color_white"
+        android:padding="16dp">
 
-        <!-- Contenu du menu inférieur -->
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_view_current_location"
+            style="@style/SearchViewStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginEnd="16dp"
+            android:hint="@string/hint_search"
+            app:layout_constraintEnd_toStartOf="@+id/image_message"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/addressButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_adresse_white"
-                android:text="@string/address"
-
-                android:background="@drawable/button_selector"
-             />
-
-            <Button
-                android:id="@+id/emailButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_mail_white"
-                android:text="Email"
-                android:background="@drawable/button_selector"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/image_settings"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/card_background"
-            android:orientation="vertical">
+            app:layout_constraintBottom_toBottomOf="@+id/image_message"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_message"
+            app:srcCompat="@drawable/ic_round_settings"
+            app:tint="@color/color_gray" />
 
-            <Button
-                android:id="@+id/plant1Button"
-                android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/image_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_message"
+            app:layout_constraintEnd_toStartOf="@+id/image_settings"
+            app:layout_constraintTop_toTopOf="@+id/image_message"
+            app:srcCompat="@drawable/ic_round_add"
+            app:tint="@color/color_gray" />
+
+        <ImageView
+            android:id="@+id/image_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/search_view_current_location"
+            app:layout_constraintEnd_toStartOf="@+id/image_add"
+            app:layout_constraintTop_toTopOf="@+id/search_view_current_location"
+            app:srcCompat="@drawable/ic_round_message"
+            app:tint="@color/color_gray" />
+
+        <TextView
+            android:id="@+id/text_user_name"
+            style="@style/TextViewHeaderStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/user_name"
+            android:textSize="36sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_view_current_location" />
+
+        <ImageView
+            android:id="@+id/image_user"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/round_background"
+            android:scaleType="centerCrop"
+            android:clipToOutline="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/text_user_name"
+            app:srcCompat="@drawable/profile_back_button" />
+
+
+        <TextView
+            android:id="@+id/text_details1"
+            style="@style/TextViewHeaderStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/details1"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_user_name" />
+        <TextView
+            android:id="@+id/text_details2"
+            style="@style/TextViewHeaderStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/details2"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_details1" />
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:scrollbars="none"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_details2">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_plante_en_pot_white"
-                android:text="Plant 1"
-                android:background="@drawable/button_selector"/>
+                android:orientation="horizontal"
+                android:padding="8dp">
 
-            <Button
-                android:id="@+id/plant2Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:layout_margin="8dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_plante_en_pot_white"
-                android:text="Plant 2"
-                android:background="@drawable/button_selector"/>
+                <TextView
+                    android:id="@+id/text_boards"
+                    style="@style/TagViewStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/myPlants" />
 
-        </LinearLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/text_pins"-->
+<!--                    style="@style/TextViewHeaderStyle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:paddingLeft="20dp"-->
+<!--                    android:paddingTop="8dp"-->
+<!--                    android:paddingRight="20dp"-->
+<!--                    android:paddingBottom="8dp"-->
+<!--                    android:text="@string/pins"-->
+<!--                    android:textColor="@color/color_gray" />-->
 
-    </LinearLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/text_tried"-->
+<!--                    style="@style/TextViewHeaderStyle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:paddingLeft="20dp"-->
+<!--                    android:paddingTop="8dp"-->
+<!--                    android:paddingRight="20dp"-->
+<!--                    android:paddingBottom="8dp"-->
+<!--                    android:text="@string/tried"-->
+<!--                    android:textColor="@color/color_gray" />-->
 
+<!--                <TextView-->
+<!--                    android:id="@+id/text_followers"-->
+<!--                    style="@style/TextViewHeaderStyle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:paddingLeft="20dp"-->
+<!--                    android:paddingTop="8dp"-->
+<!--                    android:paddingRight="20dp"-->
+<!--                    android:paddingBottom="8dp"-->
+<!--                    android:text="@string/followers"-->
+<!--                    android:textColor="@color/color_gray" />-->
 
+<!--                <TextView-->
+<!--                    android:id="@+id/text_tables"-->
+<!--                    style="@style/TextViewHeaderStyle"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:paddingLeft="20dp"-->
+<!--                    android:paddingTop="8dp"-->
+<!--                    android:paddingRight="20dp"-->
+<!--                    android:paddingBottom="8dp"-->
+<!--                    android:text="@string/tables"-->
+<!--                    android:textColor="@color/color_gray" />-->
 
-</RelativeLayout>
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="32dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

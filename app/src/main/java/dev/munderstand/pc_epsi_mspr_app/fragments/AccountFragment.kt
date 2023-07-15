@@ -24,36 +24,36 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_account, container, false)
-
-        accountIdTextView = view.findViewById(R.id.tv_account_id)
-        emailTextView = view.findViewById(R.id.tv_email)
-        addressTextView = view.findViewById(R.id.tv_address)
-        zipcodeTextView = view.findViewById(R.id.tv_zipcode)
-        cityTextView = view.findViewById(R.id.tv_city)
-
-        // Retrieve account info from shared preferences
-        val sharedPreferences = activity?.getSharedPreferences("account", Context.MODE_PRIVATE)
-        val accountInfo = sharedPreferences?.getString("accountInfo", "")
-
-        if (accountInfo != null && accountInfo.isNotEmpty()) {
-            try {
-                val jsonObject = JSONObject(accountInfo)
-                val accountId = jsonObject.getInt("id")
-                val email = jsonObject.getString("email")
-                val address = jsonObject.getString("address")
-                val zipcode = jsonObject.getString("zipcode")
-                val city = jsonObject.getString("city")
-
-                // Set the account info to the respective TextViews
-                accountIdTextView.text = accountId.toString()
-                emailTextView.text = email
-                addressTextView.text = address
-                zipcodeTextView.text = zipcode
-                cityTextView.text = city
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-        }
+//
+//        accountIdTextView = view.findViewById(R.id.tv_account_id)
+//        emailTextView = view.findViewById(R.id.tv_email)
+//        addressTextView = view.findViewById(R.id.tv_address)
+//        zipcodeTextView = view.findViewById(R.id.tv_zipcode)
+//        cityTextView = view.findViewById(R.id.tv_city)
+//
+//        // Retrieve account info from shared preferences
+//        val sharedPreferences = activity?.getSharedPreferences("account", Context.MODE_PRIVATE)
+//        val accountInfo = sharedPreferences?.getString("accountInfo", "")
+//
+//        if (accountInfo != null && accountInfo.isNotEmpty()) {
+//            try {
+//                val jsonObject = JSONObject(accountInfo)
+//                val accountId = jsonObject.getInt("id")
+//                val email = jsonObject.getString("email")
+//                val address = jsonObject.getString("address")
+//                val zipcode = jsonObject.getString("zipcode")
+//                val city = jsonObject.getString("city")
+//
+//                // Set the account info to the respective TextViews
+//                accountIdTextView.text = accountId.toString()
+//                emailTextView.text = email
+//                addressTextView.text = address
+//                zipcodeTextView.text = zipcode
+//                cityTextView.text = city
+//            } catch (e: JSONException) {
+//                e.printStackTrace()
+//            }
+//        }
 
         return view
     }

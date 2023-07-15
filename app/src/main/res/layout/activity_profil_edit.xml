@@ -96,7 +96,7 @@
                 android:layout_height="118dp"
                 android:background="@drawable/rounded_shadow_background"
 
-                android:src="@drawable/im_profile" />
+                android:src="@drawable/profile_back_button" />
 
 
         </LinearLayout>

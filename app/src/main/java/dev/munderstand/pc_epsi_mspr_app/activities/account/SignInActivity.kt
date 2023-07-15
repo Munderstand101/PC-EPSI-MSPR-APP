@@ -90,7 +90,8 @@ class SignInActivity : AppCompatActivity() {
                     getAccountInfo(token)
                     // Show a success message or perform any desired action
                     runOnUiThread {
-                        Toast.makeText(this@SignInActivity, "Login successful", Toast.LENGTH_SHORT).show()
+                       // Toast.makeText(this@SignInActivity, "Login successful", Toast.LENGTH_SHORT).show()
+
                         val intent = Intent(this@SignInActivity, MainActivity::class.java)
                         startActivity(intent)
                      //   Toast.makeText(this@SignInActivity, token, Toast.LENGTH_SHORT).show()
