@@ -23,9 +23,9 @@
         android:title="@string/plantes" />
 
     <item
-        android:id="@+id/tabAccount"
+        android:id="@+id/tabChat"
         android:icon="@drawable/ic_utilisateur_white"
-        android:title="@string/account" />
+        android:title="@string/chat" />
 
 
 </menu>
