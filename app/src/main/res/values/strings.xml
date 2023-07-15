@@ -75,5 +75,6 @@
     <string name="chat">Chat</string>
     <string name="contacts">Contacts</string>
     <string name="mesages">Messages</string>
+    <string name="details">Details</string>
 
 </resources>
