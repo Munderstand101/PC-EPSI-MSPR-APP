@@ -55,25 +55,25 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.google_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
-        nearbyCodesLayout = view.findViewById(R.id.nearby_codes_relative_layout)
-        nearbyCodesListView = view.findViewById(R.id.nearby_codes_listview)
+//
+//        nearbyCodesLayout = view.findViewById(R.id.nearby_codes_relative_layout)
+//        nearbyCodesListView = view.findViewById(R.id.nearby_codes_listview)
 
         view.findViewById<View>(R.id.map_nearby_codes_button).setOnClickListener {
             val targetFragment = BotanistesFragment()
 
             val mainActivity = requireActivity() as MainActivity
             mainActivity.replaceFragment(targetFragment)
-            mainActivity.setHeaderTxt("Menu")
-            mainActivity.showBack()
-            mainActivity.showRight()
+//            mainActivity.setHeaderTxt("Menu")
+//            mainActivity.showBack()
+//            mainActivity.showRight()
             Toast.makeText(context, "map_nearby_codes_button", Toast.LENGTH_SHORT).show()
         }
 
-        view.findViewById<View>(R.id.map_search_button).setOnClickListener {
-            hideNearbyCodesLayout()
-            Toast.makeText(context, "map_search_button", Toast.LENGTH_SHORT).show()
-        }
+//        view.findViewById<View>(R.id.map_search_button).setOnClickListener {
+//            hideNearbyCodesLayout()
+//            Toast.makeText(context, "map_search_button", Toast.LENGTH_SHORT).show()
+//        }
 
         return view
     }
@@ -205,16 +205,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
 
         // Add the zoom in and zoom out buttons
-        val zoomInButton = view?.findViewById<FloatingActionButton>(R.id.zoom_in_button)
-        val zoomOutButton = view?.findViewById<FloatingActionButton>(R.id.zoom_out_button)
-
-        zoomInButton?.setOnClickListener {
-            googleMap.animateCamera(CameraUpdateFactory.zoomIn())
-        }
-
-        zoomOutButton?.setOnClickListener {
-            googleMap.animateCamera(CameraUpdateFactory.zoomOut())
-        }
+//        val zoomInButton = view?.findViewById<FloatingActionButton>(R.id.zoom_in_button)
+//        val zoomOutButton = view?.findViewById<FloatingActionButton>(R.id.zoom_out_button)
+//
+//        zoomInButton?.setOnClickListener {
+//            googleMap.animateCamera(CameraUpdateFactory.zoomIn())
+//        }
+//
+//        zoomOutButton?.setOnClickListener {
+//            googleMap.animateCamera(CameraUpdateFactory.zoomOut())
+//        }
     }
 
     private fun hideNearbyCodesLayout() {
