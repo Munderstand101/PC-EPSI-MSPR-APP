@@ -20,10 +20,6 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
-
-
         bottomNavigationView = findViewById(R.id.navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -45,13 +41,12 @@ class MainActivity : BaseActivity() {
                 }
                 R.id.tabAccount -> {
                     replaceFragment(AccountFragment())
+                    setHeaderTxt("Account")
                     true
                 }
                 else -> false
             }
         }
-
-
 
         // Set the default fragment
         replaceFragment(AcceuilFragment())
