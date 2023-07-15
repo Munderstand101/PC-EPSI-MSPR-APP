@@ -22,9 +22,11 @@
         android:theme="@style/Theme.Base"
         tools:targetApi="31">
         <activity
-            android:name=".DashboardActivity"
+            android:name=".CGUActivity"
             android:exported="false" />
-        <!-- Activities -->
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false" /> <!-- Activities -->
         <activity
             android:name=".activities.BotanistDetailsActivity"
             android:exported="false" />

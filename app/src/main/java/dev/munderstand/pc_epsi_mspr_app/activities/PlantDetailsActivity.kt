@@ -1,12 +1,15 @@
 package dev.munderstand.pc_epsi_mspr_app.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import dev.munderstand.pc_epsi_mspr_app.R
 import dev.munderstand.pc_epsi_mspr_app.activities.common.BaseActivity
+import dev.munderstand.pc_epsi_mspr_app.activities.common.SettingsActivity
 
 class PlantDetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,5 +33,11 @@ class PlantDetailsActivity : BaseActivity() {
 //        setHeaderTxt(title.toString())
 //        showBack()
 //        showRight()
+
+        val imageViewBack=findViewById<ImageView>(R.id.iv_back)
+
+        imageViewBack.setOnClickListener(View.OnClickListener {
+            finish()
+        })
     }
 }

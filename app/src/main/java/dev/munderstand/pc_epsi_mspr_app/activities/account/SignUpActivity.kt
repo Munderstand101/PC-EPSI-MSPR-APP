@@ -1,5 +1,6 @@
 package dev.munderstand.pc_epsi_mspr_app.activities.account
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,8 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var zipcodeEditText: EditText
     private lateinit var addressEditText: EditText
     private lateinit var registerButton: Button
+    private lateinit var login: Button
+    private lateinit var CGU: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +40,12 @@ class SignUpActivity : AppCompatActivity() {
         usernameEditText = findViewById(R.id.usernameEditText)
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
-        latitudeEditText = findViewById(R.id.latitudeEditText)
-        longitudeEditText = findViewById(R.id.longitudeEditText)
         cityEditText = findViewById(R.id.cityEditText)
         zipcodeEditText = findViewById(R.id.zipcodeEditText)
         addressEditText = findViewById(R.id.addressEditText)
         registerButton = findViewById(R.id.registerButton)
+        login = findViewById(R.id.loginTextView)
+        CGU = findViewById(R.id.TextViewCGU)
 
         registerButton.setOnClickListener {
             val firstName = firstNameEditText.text.toString()
@@ -59,6 +62,17 @@ class SignUpActivity : AppCompatActivity() {
             // Make API request to register user
             register(firstName, lastName, username, email, password, latitude, longitude, city, zipcode, address)
         }
+
+        login.setOnClickListener {
+            val intent = Intent(application, SignInActivity::class.java)
+            startActivity(intent)
+        }
+
+        CGU.setOnClickListener {
+            val intent = Intent(application, SignInActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     private fun register(firstName: String, lastName: String, username: String, email: String, password: String, latitude: Double, longitude: Double, city: String, zipcode: String, address: String) {
