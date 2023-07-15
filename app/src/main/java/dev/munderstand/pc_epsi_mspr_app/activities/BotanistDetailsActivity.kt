@@ -22,7 +22,7 @@ class BotanistDetailsActivity : AppCompatActivity() {
         val textViewSpecialization = findViewById<TextView>(R.id.textViewSpecialization)
         val textViewAddress = findViewById<TextView>(R.id.textViewAddress)
         val imageViewBotanist = findViewById<ImageView>(R.id.imageViewBotanist)
-
+//
         textViewName.text = name
         textViewSpecialization.text = specialization
         textViewAddress.text = address

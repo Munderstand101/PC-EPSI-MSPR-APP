@@ -74,7 +74,7 @@
             android:clipToOutline="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_user_name"
-            app:srcCompat="@drawable/favorite_img_6" />
+            app:srcCompat="@drawable/profile_back_button" />
 
 
         <TextView

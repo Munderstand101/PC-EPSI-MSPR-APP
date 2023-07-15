@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import dev.munderstand.pc_epsi_mspr_app.R
@@ -20,6 +21,8 @@ class PlantAdapter(val offrres: MutableList<Plant>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.layout_item, parent, false)
+//            .inflate(R.layout.list_item_all, parent, false)
+//            .inflate(R.layout.list_item_board, parent, false)
         return ViewHolder(view)
     }
 
@@ -42,6 +45,23 @@ class PlantAdapter(val offrres: MutableList<Plant>) :
     override fun getItemCount(): Int {
         return offrres.size
     }
+
+
+//    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+//        val textViewName: TextView = view.findViewById(R.id.text_title)
+//        val textViewDesc: TextView = view.findViewById(R.id.text_description)
+//     //   val textViewDate: TextView = view.findViewById(R.id.text_date)
+//        val imageViewProduit: ImageView = view.findViewById(R.id.image_content)
+//        val contentLayout: CardView = view.findViewById(R.id.card_view_image_content)
+//    }
+
+//    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+//        val textViewName: TextView = view.findViewById(R.id.text_title)
+//        val textViewDesc: TextView = view.findViewById(R.id.text_date_time)
+//        val imageViewProduit: ImageView = view.findViewById(R.id.image_content)
+//        val contentLayout: CardView = view.findViewById(R.id.card_view_image_content)
+//    }
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textViewName: TextView = view.findViewById(R.id.tv_ProductName)

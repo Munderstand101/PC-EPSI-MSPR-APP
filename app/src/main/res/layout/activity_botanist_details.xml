@@ -1,33 +1,272 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
-
-  <ImageView
-      android:id="@+id/imageViewBotanist"
+    android:layout_gravity="center"
+>
+  <LinearLayout
+      android:orientation="vertical"
       android:layout_width="match_parent"
-      android:layout_height="200dp"
-      android:scaleType="centerCrop" />
+      android:layout_height="wrap_content">
+    <LinearLayout
+        android:padding="8dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+          <ImageView
+              android:id="@drawable/ic_prev_night"
+              android:layout_width="40dp"
+              android:layout_height="25dp"
+              android:layout_alignParentStart="true"
+              android:layout_alignParentTop="true"
+              android:layout_marginStart="15dp"
+              android:layout_marginTop="17dp"
 
-  <TextView
-      android:id="@+id/textViewName"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:textSize="20sp"
-      android:textStyle="bold" />
+              app:srcCompat="@drawable/ic_prev" />
 
-  <TextView
-      android:id="@+id/textViewSpecialization"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp" />
+<!--          <ImageView-->
+<!--              android:id="@+id/iv_Right_Arrow"-->
+<!--              android:layout_width="40dp"-->
+<!--              android:layout_height="25dp"-->
+<!--              android:layout_alignParentTop="true"-->
+<!--              android:layout_alignParentEnd="true"-->
+<!--              android:layout_marginTop="17dp"-->
+<!--              android:layout_marginEnd="15dp"-->
+<!--              android:layout_marginBottom="44dp"-->
 
-  <TextView
-      android:id="@+id/textViewAddress"
+<!--              app:srcCompat="@drawable/ic_edit_black" />-->
+
+          <TextView
+              android:id="@+id/textViewImageText"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentTop="true"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="20dp"
+              android:text="Profil botaniste"
+              android:textColor="#000"
+              android:textSize="20sp"
+              android:top="10dp" />
+
+
+<!--        <ImageView-->
+<!--            android:padding="5dp"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:src="@drawable/ic_prev_night"-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"/>-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="45dp"-->
+<!--            android:layout_height="45dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:layout_marginEnd="41dp"-->
+<!--            android:layout_marginBottom="5dp"-->
+<!--            android:padding="1dp"-->
+<!--            android:src="@drawable/ic_prev_night" />-->
+
+<!--        <ImageView-->
+<!--            android:layout_margin="5dp"-->
+<!--            android:padding="1dp"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:src="@drawable/ic_prev_night"-->
+<!--            android:layout_width="45dp"-->
+<!--            android:layout_height="45dp"/>-->
+
+      </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<!--      <TextView-->
+<!--          android:text="My"-->
+<!--          android:textStyle="normal"-->
+<!--          android:textColor="@color/white"-->
+<!--          android:textSize="30sp"-->
+<!--          android:layout_marginStart="15dp"-->
+<!--          android:layout_width="match_parent"-->
+<!--          android:layout_height="wrap_content"/>-->
+<!--      <TextView-->
+<!--          android:text="Profile"-->
+<!--          android:textStyle="bold"-->
+<!--          android:textColor="@color/white"-->
+<!--          android:textSize="33sp"-->
+<!--          android:layout_marginStart="15dp"-->
+<!--          android:layout_width="match_parent"-->
+<!--          android:layout_height="wrap_content"/>-->
+
+
+    </LinearLayout>
+
+
+  </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_centerInParent="true">
+
+            <androidx.cardview.widget.CardView
+
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="40dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="23dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center"
+                        android:text="Mariya Doe"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewSpecialization"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#5C5A5A"
+                        android:textSize="13sp"
+                        android:textStyle="normal" />
+                    <TextView
+                        android:id="@+id/textViewAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="#5C5A5A"
+                        android:textSize="13sp"
+                        android:textStyle="normal" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#79D6D1D1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Personal Info"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#79D6D1D1" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Family"
+                            android:textColor="#636262"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#79D6D1D1" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Vitals"
+                            android:textColor="#636262"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/imageViewBotanist"
+            android:layout_width="98dp"
+            android:layout_height="98dp"
+            android:background="@drawable/round_background"
+            android:scaleType="centerCrop"
+            android:elevation="15dp"
+            android:clipToOutline="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            app:srcCompat="@drawable/profile_back_button" />
+
+    </RelativeLayout>
+
+  <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp" />
+      android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<!--      <include layout="@layout/item_add"/>-->
+<!--      <include layout="@layout/item_info"/>-->
+<!--      <include layout="@layout/item_email"/>-->
+
+    </LinearLayout>
+  </ScrollView>
+
+
 
 </LinearLayout>

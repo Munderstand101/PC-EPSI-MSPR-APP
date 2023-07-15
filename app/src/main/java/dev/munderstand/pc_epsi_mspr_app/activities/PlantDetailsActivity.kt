@@ -6,8 +6,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import dev.munderstand.pc_epsi_mspr_app.R
+import dev.munderstand.pc_epsi_mspr_app.activities.common.BaseActivity
 
-class PlantDetailsActivity : AppCompatActivity() {
+class PlantDetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_plant_details)
@@ -25,5 +26,9 @@ class PlantDetailsActivity : AppCompatActivity() {
         textViewTitle.text = title
         textViewDescription.text = description
         Picasso.get().load(pictureUrl).into(imageViewPlant)
+
+//        setHeaderTxt(title.toString())
+//        showBack()
+//        showRight()
     }
 }
