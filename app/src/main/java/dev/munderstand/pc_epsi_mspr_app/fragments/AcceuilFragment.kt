@@ -16,11 +16,11 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import dev.munderstand.pc_epsi_mspr_app.R
+import dev.munderstand.pc_epsi_mspr_app.activities.NewPlantActivity
 import dev.munderstand.pc_epsi_mspr_app.activities.common.ApiConfig
-
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.HashMap
+import java.util.*
 
 class AcceuilFragment : Fragment() {
 
@@ -36,12 +36,15 @@ class AcceuilFragment : Fragment() {
     private lateinit var zipcodeTextView: TextView
     private lateinit var cityTextView: TextView
 
+    private var accountId: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_acceuil, container, false)
+
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
 
         recyclerView = view.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -54,27 +57,22 @@ class AcceuilFragment : Fragment() {
 
         val token = sharedPreferences?.getString("token", "")
 
-//
-        val jsonObject = JSONObject(accountInfo.toString())
-        val accountId = jsonObject.getInt("id").toString()
-        fetchPlantes(accountId, token.toString())
-
-        usernameTextView = view.findViewById(R.id.text_user_name)
-        val imageViewBotanist = view.findViewById<ImageView>(R.id.image_user)
-        val details1TextView = view.findViewById<TextView>(R.id.text_details1)
-        val details2TextView = view.findViewById<TextView>(R.id.text_details2)
-
-        if (accountInfo != null && accountInfo.isNotEmpty()) {
+        if (accountInfo.isNullOrEmpty()) {
+            // Handle the case when there is no account info
+            Toast.makeText(activity, "No account info available", Toast.LENGTH_SHORT).show()
+        } else {
             try {
                 val jsonObject = JSONObject(accountInfo)
-                val accountId = jsonObject.getInt("id")
+                accountId = jsonObject.getInt("id").toString()
+                fetchPlantes(accountId, token.toString())
+
+                usernameTextView = view.findViewById(R.id.text_user_name)
+                val imageViewBotanist = view.findViewById<ImageView>(R.id.image_user)
+                val details1TextView = view.findViewById<TextView>(R.id.text_details1)
+                val details2TextView = view.findViewById<TextView>(R.id.text_details2)
+
                 val username = jsonObject.getString("username")
                 val firstName = jsonObject.getString("firstName")
-                val lastName = jsonObject.getString("lastName")
-                val email = jsonObject.getString("email")
-                val address = jsonObject.getString("address")
-                val zipcode = jsonObject.getString("zipcode")
-                val city = jsonObject.getString("city")
                 val pictureUrl = jsonObject.getString("picture_url")
 
                 // Set the account info to the respective TextViews
@@ -82,36 +80,33 @@ class AcceuilFragment : Fragment() {
                 details1TextView.text = username.toString()
                 details2TextView.text = "Role : Utilisateur normal"
 
-                    if (!pictureUrl.isNullOrEmpty()) {
-                        Picasso.get().load(pictureUrl).into(imageViewBotanist)
-                    } else {
-                        // Load a fallback image if pictureUrl is empty
-                        Picasso.get().load(R.drawable.ic_growing_plant_black).into(imageViewBotanist)
-                    }
-//                emailTextView.text = email
-//                addressTextView.text = address
-//                zipcodeTextView.text = zipcode
-//                cityTextView.text = city
+                if (!pictureUrl.isNullOrEmpty()) {
+                    Picasso.get().load(pictureUrl).into(imageViewBotanist)
+                } else {
+                    // Load a fallback image if pictureUrl is empty
+                    Picasso.get().load(R.drawable.ic_growing_plant_black).into(imageViewBotanist)
+                }
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
         }
 
+        // Set up the OnRefreshListener
+        swipeRefreshLayout.setOnRefreshListener {
+            fetchPlantes(accountId, token.toString())
+        }
 
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-
-    }
-
     private fun fetchPlantes(user_id: String, token: String) {
+        swipeRefreshLayout.isRefreshing = true // Show the refresh indicator
+
         val queue = Volley.newRequestQueue(activity)
         val url = ApiConfig.PLANTS_ENDPOINT + user_id
 
         val jsonArrayRequest = object : JsonArrayRequest(
-            Method.GET, url, null,
+            Request.Method.GET, url, null,
             { response ->
                 try {
                     items.clear() // Clear the previous data before adding new data
@@ -126,14 +121,12 @@ class AcceuilFragment : Fragment() {
                 } catch (e: JSONException) {
                     Log.e(TAG, "Error parsing JSON", e)
                 } finally {
-                    // Hide the refresh indicator
-                   // swipeRefreshLayout.isRefreshing = false
+                    swipeRefreshLayout.isRefreshing = false // Hide the refresh indicator
                 }
             },
             { error ->
                 Log.e(TAG, "Error fetching data", error)
-                // Hide the refresh indicator
-             //   swipeRefreshLayout.isRefreshing = false
+                swipeRefreshLayout.isRefreshing = false // Hide the refresh indicator
             }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
@@ -143,10 +136,6 @@ class AcceuilFragment : Fragment() {
         }
 
         queue.add(jsonArrayRequest)
-    }
-
-    private fun performSearch(query: String) {
-        Toast.makeText(context, "Searching for: $query", Toast.LENGTH_SHORT).show()
     }
 
     companion object {
