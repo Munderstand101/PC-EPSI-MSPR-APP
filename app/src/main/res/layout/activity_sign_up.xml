@@ -78,28 +78,6 @@
             android:inputType="textPassword" />
 
         <TextView
-            android:id="@+id/latitudeLabel"
-            style="@style/Theme.Base.TextView"
-            android:text="Latitude" />
-
-        <EditText
-            android:id="@+id/latitudeEditText"
-            style="@style/Theme.Base.EditText"
-            android:hint="Latitude"
-            android:inputType="numberDecimal" />
-
-        <TextView
-            android:id="@+id/longitudeLabel"
-            style="@style/Theme.Base.TextView"
-            android:text="Longitude" />
-
-        <EditText
-            android:id="@+id/longitudeEditText"
-            style="@style/Theme.Base.EditText"
-            android:hint="Longitude"
-            android:inputType="numberDecimal" />
-
-        <TextView
             android:id="@+id/cityLabel"
             style="@style/Theme.Base.TextView"
             android:text="Ville" />
@@ -132,6 +110,30 @@
             android:hint="Adresse"
             android:inputType="text" />
 
+        <CheckBox
+            android:text="En soumettant ce formulaire, j'accepte que les informations saisies dans ce formulaire soient utilisées, exploitées, traitées pour permettre de me recontacter, pour m’envoyer la newsletter, dans le cadre de la relation commerciale qui découle de cette demande de devis."
+            style="@style/Theme.Base.TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkBoxRGPD" />
+
+        <CheckBox
+            android:id="@+id/checkBoxCGU"
+            style="@style/Theme.Base.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"/>
+
+        <TextView
+            android:id="@+id/TextViewCGU"
+            style="@style/Theme.Base.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="J'accepte les CGU"
+            android:textStyle="normal|bold"
+            android:translationX="-200px"
+            android:translationY="-150px" />
+
         <Button
             android:id="@+id/registerButton"
             style="@style/Theme.Base.Button"
@@ -145,7 +147,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="fLogin_Click"
             android:text="Se connecter"
             android:textStyle="normal|bold" />
 
