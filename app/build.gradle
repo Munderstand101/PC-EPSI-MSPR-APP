@@ -7,9 +7,10 @@ android {
     namespace 'dev.munderstand.pc_epsi_mspr_app'
     compileSdk 33
 
+
     defaultConfig {
         applicationId "dev.munderstand.pc_epsi_mspr_app"
-        minSdk 31
+        minSdk 29
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -53,5 +54,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
 
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+    implementation 'com.google.maps.android:android-maps-utils:2.2.1'
+
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
 }

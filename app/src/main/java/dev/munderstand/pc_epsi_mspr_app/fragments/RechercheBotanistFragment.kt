@@ -60,37 +60,37 @@ class RechercheBotanistFragment : Fragment() {
         adapter = BotanistAdapter(items)
         recyclerView.adapter = adapter
 
-        fetchOffers()
+//        fetchOffers()
     }
 
-    private fun fetchOffers() {
-        val queue = Volley.newRequestQueue(activity)
-        val url = "https://www.ugarit.online/epsi/offers.json"
-
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.GET, url, null,
-            { response ->
-                try {
-                    val jsonArray = response.getJSONArray("items")
-                    for (i in 0 until jsonArray.length()) {
-                        val item = jsonArray.getJSONObject(i)
-                        val name = item.getString("name")
-                        val description = item.getString("description")
-                        val pictureUrl = item.getString("picture_url")
-                        items.add(Botanist(name, description, pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl))
-
-                    }
-                    adapter.notifyDataSetChanged()
-                } catch (e: JSONException) {
-                //    Log.e(RechercheBotanistFragment.TAG, "Error parsing JSON", e)
-                }
-            },
-            { error ->
-             //   Log.e(RechercheBotanistFragment.TAG, "Error fetching data", error)
-            })
-
-        queue.add(jsonObjectRequest)
-    }
+//    private fun fetchOffers() {
+//        val queue = Volley.newRequestQueue(activity)
+//        val url = "https://www.ugarit.online/epsi/offers.json"
+//
+//        val jsonObjectRequest = JsonObjectRequest(
+//            Request.Method.GET, url, null,
+//            { response ->
+//                try {
+//                    val jsonArray = response.getJSONArray("items")
+//                    for (i in 0 until jsonArray.length()) {
+//                        val item = jsonArray.getJSONObject(i)
+//                        val name = item.getString("name")
+//                        val description = item.getString("description")
+//                        val pictureUrl = item.getString("picture_url")
+//                        items.add(Botanist(id,name, description, pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl))
+//
+//                    }
+//                    adapter.notifyDataSetChanged()
+//                } catch (e: JSONException) {
+//                //    Log.e(RechercheBotanistFragment.TAG, "Error parsing JSON", e)
+//                }
+//            },
+//            { error ->
+//             //   Log.e(RechercheBotanistFragment.TAG, "Error fetching data", error)
+//            })
+//
+//        queue.add(jsonObjectRequest)
+//    }
 
     companion object {
         /**
