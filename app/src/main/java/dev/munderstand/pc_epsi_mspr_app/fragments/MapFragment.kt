@@ -1,4 +1,3 @@
-
 package dev.munderstand.pc_epsi_mspr_app.fragments
 
 import android.Manifest
@@ -28,11 +27,10 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
-
 import com.google.maps.android.clustering.Cluster
 import com.google.maps.android.clustering.view.DefaultClusterRenderer
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.maps.android.clustering.ClusterManager
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dev.munderstand.pc_epsi_mspr_app.R
 import dev.munderstand.pc_epsi_mspr_app.activities.BotanistDetailsActivity
 import dev.munderstand.pc_epsi_mspr_app.activities.MainActivity
@@ -55,25 +53,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.google_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-//
-//        nearbyCodesLayout = view.findViewById(R.id.nearby_codes_relative_layout)
-//        nearbyCodesListView = view.findViewById(R.id.nearby_codes_listview)
 
         view.findViewById<View>(R.id.map_nearby_codes_button).setOnClickListener {
             val targetFragment = BotanistesFragment()
-
             val mainActivity = requireActivity() as MainActivity
             mainActivity.replaceFragment(targetFragment)
-//            mainActivity.setHeaderTxt("Menu")
-//            mainActivity.showBack()
-//            mainActivity.showRight()
-            Toast.makeText(context, "map_nearby_codes_button", Toast.LENGTH_SHORT).show()
+           // Toast.makeText(context, "map_nearby_codes_button", Toast.LENGTH_SHORT).show()
         }
-
-//        view.findViewById<View>(R.id.map_search_button).setOnClickListener {
-//            hideNearbyCodesLayout()
-//            Toast.makeText(context, "map_search_button", Toast.LENGTH_SHORT).show()
-//        }
 
         return view
     }
@@ -82,7 +68,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         this.googleMap = googleMap
         setupMap()
         fetchBotanists()
-        setupMarkerClickListener()
     }
 
     private fun getBitmapFromVectorDrawable(drawableId: Int): Bitmap {
@@ -147,7 +132,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
                     googleMap.moveCamera(cameraUpdate)
 
-
                 } catch (e: JSONException) {
                     e.printStackTrace()
                     Toast.makeText(
@@ -202,40 +186,24 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     LOCATION_PERMISSION_REQUEST_CODE
                 )
             }
-        }
 
-        // Add the zoom in and zoom out buttons
-//        val zoomInButton = view?.findViewById<FloatingActionButton>(R.id.zoom_in_button)
-//        val zoomOutButton = view?.findViewById<FloatingActionButton>(R.id.zoom_out_button)
-//
-//        zoomInButton?.setOnClickListener {
-//            googleMap.animateCamera(CameraUpdateFactory.zoomIn())
-//        }
-//
-//        zoomOutButton?.setOnClickListener {
-//            googleMap.animateCamera(CameraUpdateFactory.zoomOut())
-//        }
-    }
+            // Show info window when clicked on a marker
+            googleMap.setOnMarkerClickListener { marker ->
+                val botanist = marker.tag as? JSONObject
+                if (botanist != null) {
+                    val name = botanist.getString("name")
+                    val specialization = botanist.getString("specialization")
+                    val address = botanist.getString("address")
+                    val pictureUrl = if (botanist.has("pictureUrl")) botanist.getString("pictureUrl") else ""
 
-    private fun hideNearbyCodesLayout() {
-        nearbyCodesLayout.visibility = View.GONE
-    }
-
-    private fun setupMarkerClickListener() {
-        googleMap.setOnInfoWindowClickListener { marker ->
-            val botanist = marker.tag as? JSONObject
-            if (botanist != null) {
-                val name = botanist.getString("name")
-                val specialization = botanist.getString("specialization")
-                val address = botanist.getString("address")
-                val pictureUrl = if (botanist.has("pictureUrl")) botanist.getString("pictureUrl") else ""
-
-                val intent = Intent(requireContext(), BotanistDetailsActivity::class.java)
-                intent.putExtra("name", name)
-                intent.putExtra("specialization", specialization)
-                intent.putExtra("address", address)
-                intent.putExtra("pictureUrl", pictureUrl)
-                startActivity(intent)
+                    val intent = Intent(requireContext(), BotanistDetailsActivity::class.java)
+                    intent.putExtra("name", name)
+                    intent.putExtra("specialization", specialization)
+                    intent.putExtra("address", address)
+                    intent.putExtra("pictureUrl", pictureUrl)
+                    startActivity(intent)
+                }
+                true
             }
         }
     }
