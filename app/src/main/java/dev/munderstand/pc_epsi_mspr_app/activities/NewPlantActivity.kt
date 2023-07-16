@@ -45,7 +45,6 @@ class NewPlantActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_plant)
 
-
         capturePhotoButton = findViewById(R.id.capturePhotoButton)
         nameEditText = findViewById(R.id.nameEditText)
         descriptionEditText = findViewById(R.id.descriptionEditText)
@@ -73,7 +72,6 @@ class NewPlantActivity : AppCompatActivity() {
 
         val jsonObject = JSONObject(accountInfo.toString())
         val accountId = jsonObject.getInt("id").toString()
-        Toast.makeText(this@NewPlantActivity, "id: $accountId", Toast.LENGTH_SHORT).show()
 //        val sharedPreferences = getSharedPreferences("account", Context.MODE_PRIVATE)
 
         // Retrieve the token from SharedPreferences

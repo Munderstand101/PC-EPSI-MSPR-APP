@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -28,13 +29,13 @@ class MyRequestsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_requests)
 
-        val imageViewBack = findViewById<ImageView>(R.id.iv_Left_Arrow)
-        imageViewBack.setOnClickListener {
-            finish()
-        }
-
         val pageTitle = findViewById<TextView>(R.id.tv_title)
         pageTitle.text = "Mes demandes"
+
+        val imageViewBack = findViewById<ImageView>(R.id.iv_Left_Arrow)
+        imageViewBack.setOnClickListener(View.OnClickListener {
+            finish()
+        })
 
         val annonces = arrayListOf<Annonce>()
 

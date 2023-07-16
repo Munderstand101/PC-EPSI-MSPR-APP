@@ -5,10 +5,47 @@
     android:layout_height="match_parent"
     tools:context=".fragments.PhotoPlanteFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" >
+
+                                <Button
+                                    android:id="@+id/buttonScan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="50dp"
+                                    android:text="Prendre en photo une plante" />
+
+                                <ImageView
+                                    android:id="@+id/imageView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="centerInside" />
+
+                                <Button
+                                    android:id="@+id/uploadButton"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="50dp"
+                                    android:text="Upload" />
+                        </LinearLayout>
+                </ScrollView>
+
+        </LinearLayout>
+
+
 
 </FrameLayout>

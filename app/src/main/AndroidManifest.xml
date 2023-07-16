@@ -25,6 +25,9 @@
             android:name=".activities.MyRequestsActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.PlantIdentifyActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.CreateAnnonceActivity"
             android:exported="false" />
         <activity

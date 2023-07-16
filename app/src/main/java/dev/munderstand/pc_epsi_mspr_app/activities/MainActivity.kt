@@ -32,7 +32,7 @@ class MainActivity : BaseActivity() {
                     true
                 }
                 R.id.tabCamera -> {
-                    replaceFragment(BotanistesFragment())// Handle camera placeholder item
+                    replaceFragment(PhotoPlanteFragment())// Handle camera placeholder item
                     true
                 }
                 R.id.tabPlantes -> {

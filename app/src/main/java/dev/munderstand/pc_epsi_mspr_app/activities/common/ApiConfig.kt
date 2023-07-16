@@ -19,6 +19,8 @@ class ApiConfig {
         const val PLANT_ADD_ENDPOINT = "$BASE_URL_API/plante/add"
 
         const val BOTANIST_ENDPOINT = "$BASE_URL_API/botanist/"
+
+        const val API_PLANT_ID_KEY = "zjvEs5ss0vRkBEiWgF8tiWYaEQfzp7uHycojAxbgtLZ8lAmuG9"
 //    val url = "http://127.0.0.1:8002/api/main/botaniste/"
 
         // Add other endpoints as needed
