@@ -35,7 +35,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/searchIcon"
+                    android:id="@+id/searchIcon0"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center_vertical"
@@ -62,7 +62,7 @@
 
                 <!-- Icône utilisateur -->
                 <ImageView
-                    android:id="@+id/searchIcon"
+                    android:id="@+id/searchIcon1"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:layout_gravity="center_vertical"
