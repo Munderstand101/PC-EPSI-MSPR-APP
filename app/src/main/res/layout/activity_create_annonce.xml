@@ -19,6 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="15dp"
             android:orientation="vertical" >
 
             <TextView
@@ -32,10 +33,11 @@
 
             <Spinner
                 android:id="@+id/spinnerPlantes"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="50dp"/>
+                android:layout_marginBottom="20dp" />
+
 
             <EditText
                 android:id="@+id/editTextRequestTitle"
@@ -44,7 +46,7 @@
                 android:ems="10"
                 android:inputType="text"
                 android:hint="Titre de l'annonce"
-                android:layout_marginBottom="50dp" />
+                android:layout_marginBottom="20dp" />
 
             <EditText
                 android:id="@+id/editTextRequestDescription"
@@ -53,7 +55,7 @@
                 android:ems="10"
                 android:inputType="text"
                 android:hint="Description de l'annonce"
-                android:layout_marginBottom="50dp" />
+                android:layout_marginBottom="20dp" />
 
             <EditText
                 android:id="@+id/editTextAddress"
@@ -62,7 +64,55 @@
                 android:ems="10"
                 android:inputType="text"
                 android:hint="Adresse de la plante"
-                android:layout_marginBottom="50dp" />
+                android:layout_marginBottom="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextDateDebut"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="date"
+                    android:hint="Date de début"
+                    android:layout_marginBottom="20dp" />
+
+                <Button
+                    android:id="@+id/buttonDateDebut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date de début"
+                    android:layout_marginBottom="20dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextDateFin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="date"
+                    android:hint="Date de fin"
+                    android:layout_marginBottom="20dp" />
+
+                <Button
+                    android:id="@+id/buttonDateFin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date de fin"
+                    android:layout_marginBottom="20dp" />
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/buttonCreateAnnonce"

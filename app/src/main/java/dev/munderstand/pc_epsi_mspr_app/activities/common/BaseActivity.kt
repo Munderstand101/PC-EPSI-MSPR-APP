@@ -21,9 +21,9 @@ open class BaseActivity: AppCompatActivity() {
         val imageViewBack=findViewById<ImageView>(R.id.iv_Left_Arrow)
         imageViewBack.visibility=View.VISIBLE
         imageViewBack.setOnClickListener(View.OnClickListener {
-         //   finish()
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
+            finish()
+//            val intent = Intent(this, SettingsActivity::class.java)
+//            startActivity(intent)
         })
     }
 
