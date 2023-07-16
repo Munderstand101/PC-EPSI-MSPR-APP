@@ -20,8 +20,4 @@ class MarkerClusterItem(
     override fun getSnippet(): String {
         return address
     }
-
-    override fun getZIndex(): Float? {
-        TODO("Not yet implemented")
-    }
 }

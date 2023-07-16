@@ -32,7 +32,7 @@ class MyRequestsActivity : AppCompatActivity() {
 
         val annonces = arrayListOf<Annonce>()
 
-        val recyclerViewMyAnnonces = findViewById<RecyclerView>(R.id.recyclerViewAnnonces)
+        val recyclerViewMyAnnonces = findViewById<RecyclerView>(R.id.recyclerViewMyAnnonces)
         recyclerViewMyAnnonces.layoutManager = LinearLayoutManager(this)
         val annonceAdapter = AnnonceAdapter(annonces)
         recyclerViewMyAnnonces.adapter = annonceAdapter
@@ -47,10 +47,13 @@ class MyRequestsActivity : AppCompatActivity() {
                 val jsonObject = JSONObject(accountInfo)
                 val accountId = jsonObject.getInt("id").toString()
 
+
+                val token = sharedPreferences.getString("token", "")
+
                 val okHttpClient: OkHttpClient = OkHttpClient.Builder().build()
                 val mRequestUrl = ApiConfig.REQUESTS_MY_ENDPOINT + accountId
                 val request =
-                    Request.Builder().url(mRequestUrl).cacheControl(CacheControl.FORCE_NETWORK).build()
+                    Request.Builder().url(mRequestUrl).header("Authorization", "Bearer $token").cacheControl(CacheControl.FORCE_NETWORK).build()
 
                 okHttpClient.newCall(request).enqueue(object : Callback {
 
@@ -63,7 +66,7 @@ class MyRequestsActivity : AppCompatActivity() {
                             val annonce = Annonce(
                                 jsAnnonce.getString("title"),
                                 jsAnnonce.getString("description"),
-                                jsAnnonce.getString("imgUrl"),
+                                jsAnnonce.getJSONObject("plant").getString("photo"),
                                 jsAnnonce.getString("address"),
                                 jsAnnonce.getJSONObject("user").getString("username"),
                                 jsAnnonce.getJSONObject("plant").getString("name")

@@ -2,15 +2,15 @@ package dev.munderstand.pc_epsi_mspr_app.activities.common
 
 class ApiConfig {
     companion object{
-        const val BASE_URL_PHOTOS = "http://192.168.1.17:8000/photos/"
-        const val BASE_URL_API = "http://192.168.1.17:8000/api"
+        const val BASE_URL_PHOTOS = "http://88.125.155.66:32768/photos/"
+        const val BASE_URL_API = "http://88.125.155.66:32768/api"
         const val LOGIN_ENDPOINT = "$BASE_URL_API/login_check"
         const val REGISTER_ENDPOINT = "$BASE_URL_API/register"
 
         const val ACCOUNT_ENDPOINT = "$BASE_URL_API/main/account"
 
         const val REQUESTS_ENDPOINT = "$BASE_URL_API/requests/"
-        const val REQUESTS_MY_ENDPOINT = "$BASE_URL_API/requests/my"
+        const val REQUESTS_MY_ENDPOINT = "$BASE_URL_API/requests/my/"
         const val REQUESTS_ADD_ENDPOINT = "$BASE_URL_API/requests/new"
         const val REQUESTS_DELETE_ENDPOINT = "$BASE_URL_API/requests/delete"
         const val REQUESTS_UPDATE_ENDPOINT = "$BASE_URL_API/requests/update"
