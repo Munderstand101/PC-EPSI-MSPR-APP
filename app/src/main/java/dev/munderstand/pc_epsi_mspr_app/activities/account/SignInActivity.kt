@@ -75,7 +75,6 @@ class SignInActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 val responseBody = response.body?.string()
-
                 try {
                     val jsonObject = JSONObject(responseBody)
                     val token = jsonObject.getString("token") // Extract the token from the response

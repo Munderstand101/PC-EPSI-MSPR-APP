@@ -27,14 +27,14 @@ open class BaseActivity: AppCompatActivity() {
         })
     }
 
-    fun showRight() {
-        val imageViewBack = findViewById<ImageView>(R.id.iv_Right_Arrow)
-        imageViewBack.visibility = View.VISIBLE
-        imageViewBack.setOnClickListener {
-            val intent = Intent(this, ProfilViewActivity::class.java)
-            startActivity(intent)
-        }
-    }
+//    fun showRight() {
+//        val imageViewBack = findViewById<ImageView>(R.id.iv_Right_Arrow)
+//        imageViewBack.visibility = View.VISIBLE
+//        imageViewBack.setOnClickListener {
+//            val intent = Intent(this, ProfilViewActivity::class.java)
+//            startActivity(intent)
+//        }
+//    }
 
 
 

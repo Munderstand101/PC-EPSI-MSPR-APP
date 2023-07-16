@@ -192,6 +192,8 @@ class NewPlantActivity : AppCompatActivity() {
             .post(requestBody)
             .build()
 
+        println("coucou")
+
         // Send the request asynchronously
         client.newCall(request).enqueue(object : okhttp3.Callback {
             override fun onFailure(call: okhttp3.Call, e: IOException) {
@@ -212,6 +214,7 @@ class NewPlantActivity : AppCompatActivity() {
                 val responseBody = response.body?.string()
                 try {
                     val jsonObject = JSONObject(responseBody)
+                    Log.e("WS", jsonObject.toString())
                     // Handle the response data if needed
                     runOnUiThread {
                         Toast.makeText(
