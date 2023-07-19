@@ -20,6 +20,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         bottomNavigationView = findViewById(R.id.navigation)
         bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -48,11 +49,10 @@ class MainActivity : BaseActivity() {
             }
         }
 
+
+
         // Set the default fragment
         replaceFragment(AcceuilFragment())
-          setHeaderTxt("Menu")
-         showBack()
-          showRight()
     }
 
     private fun replaceFragment(fragment: Fragment) {
