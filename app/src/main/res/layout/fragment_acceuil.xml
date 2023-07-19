@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="25dp"
-                        android:layout_marginBottom="50dp"
+                        android:layout_marginBottom="25dp"
                         android:layout_weight="1"
                         android:drawableTop="@drawable/ic_plante_en_pot_white"
                         android:text="Voir les \ndemandes"

@@ -47,7 +47,9 @@ class AcceuilFragment : Fragment() {
         val getRequestsButton = view.findViewById<Button>(R.id.getRequestsButton)
 
         val myScrollView = view.findViewById<ScrollView>(R.id.scrollView)
-        myScrollView.scrollToDescendant(getRequestsButton)
+        myScrollView.post {
+            myScrollView.fullScroll(View.FOCUS_DOWN)
+        }
 
         messagesButton.setOnClickListener {
 
