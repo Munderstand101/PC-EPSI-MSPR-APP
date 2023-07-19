@@ -1,10 +1,12 @@
 package dev.munderstand.pc_epsi_mspr_app.activities.account
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import dev.munderstand.pc_epsi_mspr_app.R
 import dev.munderstand.pc_epsi_mspr_app.activities.common.ApiConfig
@@ -21,12 +23,12 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var usernameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
-    private lateinit var latitudeEditText: EditText
-    private lateinit var longitudeEditText: EditText
     private lateinit var cityEditText: EditText
     private lateinit var zipcodeEditText: EditText
     private lateinit var addressEditText: EditText
     private lateinit var registerButton: Button
+    private lateinit var login: TextView
+    private lateinit var CGU: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +43,8 @@ class SignUpActivity : AppCompatActivity() {
         zipcodeEditText = findViewById(R.id.zipcodeEditText)
         addressEditText = findViewById(R.id.addressEditText)
         registerButton = findViewById(R.id.registerButton)
+        login = findViewById(R.id.loginTextView)
+        CGU = findViewById(R.id.TextViewCGU)
 
         registerButton.setOnClickListener {
             val firstName = firstNameEditText.text.toString()
@@ -48,18 +52,27 @@ class SignUpActivity : AppCompatActivity() {
             val username = usernameEditText.text.toString()
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
-            val latitude = latitudeEditText.text.toString().toDoubleOrNull() ?: 0.0
-            val longitude = longitudeEditText.text.toString().toDoubleOrNull() ?: 0.0
             val city = cityEditText.text.toString()
             val zipcode = zipcodeEditText.text.toString()
             val address = addressEditText.text.toString()
 
             // Make API request to register user
-            register(firstName, lastName, username, email, password, latitude, longitude, city, zipcode, address)
+            register(firstName, lastName, username, email, password, city, zipcode, address)
         }
+
+        login.setOnClickListener {
+            val intent = Intent(application, SignInActivity::class.java)
+            startActivity(intent)
+        }
+
+        CGU.setOnClickListener {
+            val intent = Intent(application, CGUActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
-    private fun register(firstName: String, lastName: String, username: String, email: String, password: String, latitude: Double, longitude: Double, city: String, zipcode: String, address: String) {
+    private fun register(firstName: String, lastName: String, username: String, email: String, password: String, city: String, zipcode: String, address: String) {
         val client = OkHttpClient()
 
         val url = ApiConfig.REGISTER_ENDPOINT
@@ -70,8 +83,6 @@ class SignUpActivity : AppCompatActivity() {
         jsonBody.put("username", username)
         jsonBody.put("email", email)
         jsonBody.put("password", password)
-        jsonBody.put("latitude", latitude)
-        jsonBody.put("longitude", longitude)
         jsonBody.put("city", city)
         jsonBody.put("zipcode", zipcode)
         jsonBody.put("address", address)

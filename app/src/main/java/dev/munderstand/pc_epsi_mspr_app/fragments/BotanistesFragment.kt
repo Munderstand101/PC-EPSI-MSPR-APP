@@ -1,5 +1,7 @@
 package dev.munderstand.pc_epsi_mspr_app.fragments
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,12 +10,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.Request
+import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import dev.munderstand.pc_epsi_mspr_app.R
 import dev.munderstand.pc_epsi_mspr_app.activities.common.ApiConfig
 import org.json.JSONException
+import org.json.JSONObject
+import java.util.HashMap
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,6 +39,7 @@ class BotanistesFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: BotanistAdapter
     private val items = mutableListOf<Botanist>()
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,38 +67,83 @@ class BotanistesFragment : Fragment() {
         adapter = BotanistAdapter(items)
         recyclerView.adapter = adapter
 
-        fetchOffers()
+      //  fetchOffers
+
+        val sharedPreferences = activity?.getSharedPreferences("account", Context.MODE_PRIVATE)
+        val accountInfo = sharedPreferences?.getString("accountInfo", "")
+        // Retrieve the token from SharedPreferences
+        val token = sharedPreferences?.getString("token", "")
+
+        val jsonObject = JSONObject(accountInfo.toString())
+        val accountId = jsonObject.getInt("id").toString()
+        fetchBotanistes( token.toString())
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
+        swipeRefreshLayout.setOnRefreshListener {
+            // Refresh data when the user swipes down
+            fetchBotanistes( token.toString())
+        }
     }
 
-    private fun fetchOffers() {
+
+    private fun fetchBotanistes(token: String) {
         val queue = Volley.newRequestQueue(activity)
-        //val url = "https://www.ugarit.online/epsi/offers.json"
         val url = ApiConfig.BOTANIST_ENDPOINT
 
-        val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.GET, url, null,
+        val jsonArrayRequest = object : JsonArrayRequest(
+            Method.GET, url, null,
             { response ->
                 try {
-                    val jsonArray = response.getJSONArray("items")
-                    for (i in 0 until jsonArray.length()) {
-                        val item = jsonArray.getJSONObject(i)
+                    items.clear() // Clear the previous data before adding new data
+                    for (i in 0 until response.length()) {
+                        val item = response.getJSONObject(i)
+                        val id = item.getInt("id")
                         val name = item.getString("name")
-                        val description = item.getString("description")
+                        val specialization = item.getString("specialization")
+                        val address = item.getString("address")
+                        val zipcode = item.getString("zipcode")
+                        val city = item.getString("city")
+                        val longitude = item.getDouble("longitude")
+                        val latitude = item.getDouble("latitude")
                         val pictureUrl = item.getString("picture_url")
-                        items.add(Botanist(name, description, pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl,pictureUrl))
 
+                        val botanist = Botanist(
+                            id,
+                            name,
+                            specialization,
+                            address,
+                            zipcode,
+                            city,
+                            longitude,
+                            latitude,
+                            pictureUrl
+                        )
+                        items.add(botanist)
                     }
                     adapter.notifyDataSetChanged()
                 } catch (e: JSONException) {
-                    Log.e(Companion.TAG, "Error parsing JSON", e)
+                    Log.e(TAG, "Error parsing JSON", e)
+                }
+                finally {
+                    // Hide the refresh indicator
+                    swipeRefreshLayout.isRefreshing = false
                 }
             },
             { error ->
-                Log.e(Companion.TAG, "Error fetching data", error)
-            })
+                Log.e(TAG, "Error fetching data", error)
+                // Hide the refresh indicator
+                swipeRefreshLayout.isRefreshing = false
+            }
+        ) {
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Authorization"] = "Bearer $token"
+                return headers
+            }
+        }
 
-        queue.add(jsonObjectRequest)
+        queue.add(jsonArrayRequest)
     }
+
 
 
     companion object {

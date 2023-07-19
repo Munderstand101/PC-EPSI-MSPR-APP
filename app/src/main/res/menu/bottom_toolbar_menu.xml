@@ -15,17 +15,15 @@
         android:icon="@drawable/ic_appareil_photo"
         android:title="@string/cam" />
 
-
-
     <item
         android:id="@+id/tabPlantes"
         android:icon="@drawable/ic_plante_en_pot_white"
         android:title="@string/plantes" />
 
     <item
-        android:id="@+id/tabAccount"
+        android:id="@+id/tabAnnonces"
         android:icon="@drawable/ic_utilisateur_white"
-        android:title="@string/account" />
+        android:title="@string/annonces" />
 
 
 </menu>

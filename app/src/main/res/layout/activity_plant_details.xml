@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!-- Plant Image Block -->
+    <RelativeLayout
+        android:id="@+id/layoutImageContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <!-- Text on Image -->
+
+        <ImageView
+            android:id="@+id/imageViewPlant"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/plant_preview" />
+
+        <TextView
+            android:id="@+id/textViewImageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/details"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:top="10dp" />
+
+
+
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:src="@drawable/ic_prev_night"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="17dp"
+
+            app:srcCompat="@drawable/ic_prev_night" />
+
+
+
+    </RelativeLayout>
+
+    <!-- Plant Details Block -->
+    <RelativeLayout
+        android:id="@+id/layoutPlantDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:elevation="8dp"
+        app:cardCornerRadius="20dp">
+
+        <!-- CardView -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <!-- Plant Icon -->
+                <ImageView
+                    android:id="@+id/imageViewPlantIcon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentStart="true"
+                    android:src="@drawable/ic_growing_plant_black" />
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/textViewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/imageViewPlantIcon"
+                    android:layout_marginStart="8dp"
+                    android:text="Plant Title"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <!-- Description -->
+                <TextView
+                    android:id="@+id/textViewDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewTitle"
+                    android:layout_toEndOf="@id/imageViewPlantIcon"
+                    android:layout_marginTop="8dp"
+                    android:text="Plant Description" />
+
+
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+</RelativeLayout>

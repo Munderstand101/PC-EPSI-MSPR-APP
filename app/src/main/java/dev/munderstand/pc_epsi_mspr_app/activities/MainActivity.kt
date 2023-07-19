@@ -33,13 +33,15 @@ class MainActivity : BaseActivity() {
                     true
                 }
                 R.id.tabCamera -> {
-                    replaceFragment(BotanistesFragment())// Handle camera placeholder item
+                    replaceFragment(PhotoPlanteFragment())// Handle camera placeholder item
                     true
                 }
                 R.id.tabPlantes -> {
                     replaceFragment(PlantesFragment())
                     true
                 }
+                R.id.tabAnnonces -> {
+                    replaceFragment(AnnoncesFragment())
                 R.id.tabAccount -> {
                     replaceFragment(AccountFragment())
                     setHeaderTxt("Account")
@@ -49,13 +51,11 @@ class MainActivity : BaseActivity() {
             }
         }
 
-
-
         // Set the default fragment
         replaceFragment(AcceuilFragment())
     }
 
-    private fun replaceFragment(fragment: Fragment) {
+    fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.content, fragment)
             .commit()

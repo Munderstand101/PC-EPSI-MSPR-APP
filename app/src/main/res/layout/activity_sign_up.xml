@@ -17,13 +17,31 @@
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="20dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="20dp">
 
+            <ImageView
+                android:layout_width="265dp"
+                android:layout_height="238dp"
+                android:contentDescription="Logo"
+                android:src="@drawable/logo_base" />
             <ImageView
                     android:layout_width="265dp"
                     android:layout_height="238dp"
                     android:contentDescription="Logo"
                     android:src="@drawable/logo_base" />
 
+            <TextView
+                android:id="@+id/firstNameLabel"
+                style="@style/Theme.Base.TextView"
+                android:text="Prénom" />
             <TextView
                     android:id="@+id/firstNameLabel"
                     style="@style/Theme.Base.TextView"
@@ -34,7 +52,16 @@
                     style="@style/Theme.Base.EditText"
                     android:hint="Prénom"
                     android:inputType="text" />
+            <EditText
+                android:id="@+id/firstNameEditText"
+                style="@style/Theme.Base.EditText"
+                android:hint="Prénom"
+                android:inputType="text" />
 
+            <TextView
+                android:id="@+id/lastNameLabel"
+                style="@style/Theme.Base.TextView"
+                android:text="Nom de famille" />
             <TextView
                     android:id="@+id/lastNameLabel"
                     style="@style/Theme.Base.TextView"
@@ -45,12 +72,26 @@
                     style="@style/Theme.Base.EditText"
                     android:hint="Nom de famille"
                     android:inputType="text" />
+            <EditText
+                android:id="@+id/lastNameEditText"
+                style="@style/Theme.Base.EditText"
+                android:hint="Nom de famille"
+                android:inputType="text" />
 
+            <TextView
+                android:id="@+id/usernameLabel"
+                style="@style/Theme.Base.TextView"
+                android:text="Nom d'utilisateur" />
             <TextView
                     android:id="@+id/usernameLabel"
                     style="@style/Theme.Base.TextView"
                     android:text="Nom d'utilisateur" />
 
+            <EditText
+                android:id="@+id/usernameEditText"
+                style="@style/Theme.Base.EditText"
+                android:hint="Nom d'utilisateur"
+                android:inputType="text" />
             <EditText
                     android:id="@+id/usernameEditText"
                     style="@style/Theme.Base.EditText"
@@ -58,10 +99,19 @@
                     android:inputType="text" />
 
             <TextView
+                android:id="@+id/emailLabel"
+                style="@style/Theme.Base.TextView"
+                android:text="Adresse e-mail" />
+            <TextView
                     android:id="@+id/emailLabel"
                     style="@style/Theme.Base.TextView"
                     android:text="Adresse e-mail" />
 
+            <EditText
+                android:id="@+id/emailEditText"
+                style="@style/Theme.Base.EditText"
+                android:hint="Adresse e-mail"
+                android:inputType="textEmailAddress" />
             <EditText
                     android:id="@+id/emailEditText"
                     style="@style/Theme.Base.EditText"
@@ -72,45 +122,81 @@
                     android:id="@+id/passwordLabel"
                     style="@style/Theme.Base.TextView"
                     android:text="Mot de passe" />
+            <TextView
+                android:id="@+id/passwordLabel"
+                style="@style/Theme.Base.TextView"
+                android:text="Mot de passe" />
 
             <EditText
                     android:id="@+id/passwordEditText"
                     style="@style/Theme.Base.EditText"
                     android:hint="Mot de passe"
                     android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/passwordEditText"
+                style="@style/Theme.Base.EditText"
+                android:hint="Mot de passe"
+                android:inputType="textPassword" />
 
             <TextView
                     android:id="@+id/cityLabel"
                     style="@style/Theme.Base.TextView"
                     android:text="Ville" />
+            <TextView
+                android:id="@+id/cityLabel"
+                style="@style/Theme.Base.TextView"
+                android:text="Ville" />
 
             <EditText
                     android:id="@+id/cityEditText"
                     style="@style/Theme.Base.EditText"
                     android:hint="Ville"
                     android:inputType="text" />
+            <EditText
+                android:id="@+id/cityEditText"
+                style="@style/Theme.Base.EditText"
+                android:hint="Ville"
+                android:inputType="text" />
 
             <TextView
                     android:id="@+id/zipcodeLabel"
                     style="@style/Theme.Base.TextView"
                     android:text="Code postal" />
+            <TextView
+                android:id="@+id/zipcodeLabel"
+                style="@style/Theme.Base.TextView"
+                android:text="Code postal" />
 
             <EditText
                     android:id="@+id/zipcodeEditText"
                     style="@style/Theme.Base.EditText"
                     android:hint="Code postal"
                     android:inputType="text" />
+            <EditText
+                android:id="@+id/zipcodeEditText"
+                style="@style/Theme.Base.EditText"
+                android:hint="Code postal"
+                android:inputType="text" />
 
             <TextView
                     android:id="@+id/addressLabel"
                     style="@style/Theme.Base.TextView"
                     android:text="Adresse" />
+            <TextView
+                android:id="@+id/addressLabel"
+                style="@style/Theme.Base.TextView"
+                android:text="Adresse" />
 
             <EditText
                     android:id="@+id/addressEditText"
                     style="@style/Theme.Base.EditText"
                     android:hint="Adresse"
                     android:inputType="text" />
+            <EditText
+                android:id="@+id/addressEditText"
+                style="@style/Theme.Base.EditText"
+                android:hint="Adresse"
+                android:inputType="text" />
 
             <CheckBox
                     android:text="En soumettant ce formulaire, j'accepte que les informations saisies dans ce formulaire soient utilisées, exploitées, traitées pour permettre de me recontacter, pour m’envoyer la newsletter, dans le cadre de la relation commerciale qui découle de cette demande de devis."
@@ -140,6 +226,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="S'inscrire" />
+            <CheckBox
+                android:text="En soumettant ce formulaire, j'accepte que les informations saisies dans ce formulaire soient utilisées, exploitées, traitées pour permettre de me recontacter, pour m’envoyer la newsletter, dans le cadre de la relation commerciale qui découle de cette demande de devis."
+                style="@style/Theme.Base.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBoxRGPD" />
+
+            <CheckBox
+                android:id="@+id/checkBoxCGU"
+                style="@style/Theme.Base.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"/>
+
+            <TextView
+                android:id="@+id/TextViewCGU"
+                style="@style/Theme.Base.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="J'accepte les CGU"
+                android:textStyle="normal|bold"
+                android:translationX="-200px"
+                android:translationY="-150px" />
+
+            <Button
+                android:id="@+id/registerButton"
+                style="@style/Theme.Base.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S'inscrire" />
 
             <TextView
                     android:id="@+id/loginTextView"
@@ -150,6 +266,14 @@
                     android:onClick="fLogin_Click"
                     android:text="Se connecter"
                     android:textStyle="normal|bold" />
+            <TextView
+                android:id="@+id/loginTextView"
+                style="@style/Theme.Base.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Se connecter"
+                android:textStyle="normal|bold" />
 
         </LinearLayout>
     </ScrollView>
