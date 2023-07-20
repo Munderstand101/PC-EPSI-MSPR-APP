@@ -45,7 +45,6 @@ class NewPlantActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_plant)
 
-
         capturePhotoButton = findViewById(R.id.capturePhotoButton)
         nameEditText = findViewById(R.id.nameEditText)
         descriptionEditText = findViewById(R.id.descriptionEditText)
@@ -73,7 +72,6 @@ class NewPlantActivity : AppCompatActivity() {
 
         val jsonObject = JSONObject(accountInfo.toString())
         val accountId = jsonObject.getInt("id").toString()
-        Toast.makeText(this@NewPlantActivity, "id: $accountId", Toast.LENGTH_SHORT).show()
 //        val sharedPreferences = getSharedPreferences("account", Context.MODE_PRIVATE)
 
         // Retrieve the token from SharedPreferences
@@ -117,7 +115,7 @@ class NewPlantActivity : AppCompatActivity() {
             }
         } catch (ex: IOException) {
             // Error occurred while creating the File
-            Log.e(TAG, "Error capturing photo", ex)
+            //Log.e(TAG, "Error capturing photo", ex)
         }
     }
 
@@ -134,7 +132,7 @@ class NewPlantActivity : AppCompatActivity() {
             }
         } catch (ex: IOException) {
             // Error occurred while creating the File
-            Log.e(TAG, "Error creating image file", ex)
+            //Log.e(TAG, "Error creating image file", ex)
             null
         }
     }
@@ -192,6 +190,8 @@ class NewPlantActivity : AppCompatActivity() {
             .post(requestBody)
             .build()
 
+        println("coucou")
+
         // Send the request asynchronously
         client.newCall(request).enqueue(object : okhttp3.Callback {
             override fun onFailure(call: okhttp3.Call, e: IOException) {
@@ -212,6 +212,7 @@ class NewPlantActivity : AppCompatActivity() {
                 val responseBody = response.body?.string()
                 try {
                     val jsonObject = JSONObject(responseBody)
+                    //Log.e("WS", jsonObject.toString())
                     // Handle the response data if needed
                     runOnUiThread {
                         Toast.makeText(

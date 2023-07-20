@@ -1,74 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipe_refresh_layout"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-       <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_white"
-        android:padding="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/search_view_current_location"
-            style="@style/SearchViewStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:hint="@string/hint_search"
-            app:layout_constraintEnd_toStartOf="@+id/image_message"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/image_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/image_message"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/image_message"
-            app:srcCompat="@drawable/ic_round_settings"
-            app:tint="@color/color_gray" />
-
-        <ImageView
-            android:id="@+id/image_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/image_message"
-            app:layout_constraintEnd_toStartOf="@+id/image_settings"
-            app:layout_constraintTop_toTopOf="@+id/image_message"
-            app:srcCompat="@drawable/ic_round_add"
-            app:tint="@color/color_gray" />
-
-        <ImageView
-            android:id="@+id/image_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/search_view_current_location"
-            app:layout_constraintEnd_toStartOf="@+id/image_add"
-            app:layout_constraintTop_toTopOf="@+id/search_view_current_location"
-            app:srcCompat="@drawable/ic_round_message"
-            app:tint="@color/color_gray" />
-
-        <TextView
-            android:id="@+id/text_user_name"
-            style="@style/TextViewHeaderStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/user_name"
-            android:textSize="36sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_view_current_location" />
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/image_user"
@@ -77,110 +19,74 @@
             android:background="@drawable/round_background"
             android:scaleType="centerCrop"
             android:clipToOutline="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_user_name"
-            app:srcCompat="@drawable/profile_back_button" />
-
+            app:srcCompat="@drawable/profile_back_button"
+            android:layout_margin="10dp"/>
 
         <TextView
-            android:id="@+id/text_details1"
+            android:id="@+id/text_user_name"
             style="@style/TextViewHeaderStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/details1"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_user_name" />
-        <TextView
-            android:id="@+id/text_details2"
-            style="@style/TextViewHeaderStyle"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="30dp"
+            android:textSize="36sp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textRole"
+        style="@style/TextViewHeaderStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/buttonAddRequest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="@string/cr_er_une_demande_de_garde"
+        app:cornerRadius="@dimen/lay_12" />
+
+    <Button
+        android:id="@+id/buttonMyRequests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="@string/voir_mes_demandes_de_garde"
+        app:cornerRadius="@dimen/lay_12" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:scrollbars="none"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_details2">
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@string/details2"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_details1" />
+            android:orientation="horizontal"
+            android:padding="8dp">
 
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:scrollbars="none"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_details2">
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/text_boards"
+                style="@style/TagViewStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="8dp">
+                android:layout_marginEnd="8dp"
+                android:text="@string/myPlants" />
 
-                <TextView
-                    android:id="@+id/text_boards"
-                    style="@style/TagViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="@string/myPlants" />
+        </LinearLayout>
 
-<!--                <TextView-->
-<!--                    android:id="@+id/text_pins"-->
-<!--                    style="@style/TextViewHeaderStyle"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    android:paddingLeft="20dp"-->
-<!--                    android:paddingTop="8dp"-->
-<!--                    android:paddingRight="20dp"-->
-<!--                    android:paddingBottom="8dp"-->
-<!--                    android:text="@string/pins"-->
-<!--                    android:textColor="@color/color_gray" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/text_tried"-->
-<!--                    style="@style/TextViewHeaderStyle"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    android:paddingLeft="20dp"-->
-<!--                    android:paddingTop="8dp"-->
-<!--                    android:paddingRight="20dp"-->
-<!--                    android:paddingBottom="8dp"-->
-<!--                    android:text="@string/tried"-->
-<!--                    android:textColor="@color/color_gray" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/text_followers"-->
-<!--                    style="@style/TextViewHeaderStyle"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    android:paddingLeft="20dp"-->
-<!--                    android:paddingTop="8dp"-->
-<!--                    android:paddingRight="20dp"-->
-<!--                    android:paddingBottom="8dp"-->
-<!--                    android:text="@string/followers"-->
-<!--                    android:textColor="@color/color_gray" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/text_tables"-->
-<!--                    style="@style/TextViewHeaderStyle"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="8dp"-->
-<!--                    android:paddingLeft="20dp"-->
-<!--                    android:paddingTop="8dp"-->
-<!--                    android:paddingRight="20dp"-->
-<!--                    android:paddingBottom="8dp"-->
-<!--                    android:text="@string/tables"-->
-<!--                    android:textColor="@color/color_gray" />-->
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
+    </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -193,8 +99,4 @@
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
             />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

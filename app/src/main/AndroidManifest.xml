@@ -22,9 +22,20 @@
         android:theme="@style/Theme.Base"
         tools:targetApi="31">
         <activity
-            android:name=".DashboardActivity"
+            android:name=".activities.MyRequestsActivity"
             android:exported="false" />
-        <!-- Activities -->
+        <activity
+            android:name=".activities.PlantIdentifyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.CreateAnnonceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.account.CGUActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="false" /> <!-- Activities -->
         <activity
             android:name=".activities.BotanistDetailsActivity"
             android:exported="false" />

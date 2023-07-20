@@ -126,21 +126,22 @@ class PlantesFragment : Fragment() {
                     items.clear() // Clear the previous data before adding new data
                     for (i in 0 until response.length()) {
                         val item = response.getJSONObject(i)
+                        val id = item.getInt("id")
                         val name = item.getString("name")
                         val description = item.getString("description")
-                        val pictureUrl = "http://88.125.155.66:32768/photos/" + item.getString("photo")
-                        items.add(Plant(name, description, pictureUrl))
+                        val pictureUrl = ApiConfig.BASE_URL_PHOTOS + item.getString("photo")
+                        items.add(Plant(id, name, description, pictureUrl))
                     }
                     adapter.notifyDataSetChanged()
                 } catch (e: JSONException) {
-                    Log.e(TAG, "Error parsing JSON", e)
+                    //Log.e(TAG, "Error parsing JSON", e)
                 } finally {
                     // Hide the refresh indicator
                     swipeRefreshLayout.isRefreshing = false
                 }
             },
             { error ->
-                Log.e(TAG, "Error fetching data", error)
+                //Log.e(TAG, "Error fetching data", error)
                 // Hide the refresh indicator
                 swipeRefreshLayout.isRefreshing = false
             }) {

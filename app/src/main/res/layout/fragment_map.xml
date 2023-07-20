@@ -35,25 +35,25 @@
 <!--            app:layout_constraintTop_toTopOf="parent"-->
 <!--            app:pressedTranslationZ="0dp" />-->
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/search_view_current_location"
-            style="@style/SearchViewStyle"
-            android:layout_width="356dp"
-            android:layout_height="52dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginEnd="16dp"
-            android:hint="@string/hint_search"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.692"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <!--   <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/search_view_current_location"
+              style="@style/SearchViewStyle"
+              android:layout_width="356dp"
+              android:layout_height="52dp"
+              android:layout_marginTop="48dp"
+              android:layout_marginEnd="16dp"
+              android:hint="@string/hint_search"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintHorizontal_bias="0.692"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />-->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/map_nearby_codes_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="136dp"
+            android:layout_marginTop="66dp"
             android:layout_marginEnd="10dp"
             android:backgroundTint="@color/white"
             android:contentDescription="Button that opens nearby codes"
