@@ -48,7 +48,7 @@ class MessagesFragment : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     // Interval for refreshing messages in milliseconds (5 seconds)
-    private val REFRESH_INTERVAL = 5000L
+    private val REFRESH_INTERVAL = 1000L
 
     // Handler and Runnable for refreshing messages
     private val handler = Handler()

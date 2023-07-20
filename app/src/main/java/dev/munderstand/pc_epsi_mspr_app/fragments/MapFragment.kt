@@ -98,7 +98,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
                     for (i in 0 until response.length()) {
                         val botanist = response.getJSONObject(i)
-                        val name = botanist.getString("name")
+                        val name = botanist.getString("fullName")
                         val address = botanist.getString("address")
                         val longitude = botanist.getDouble("longitude")
                         val latitude = botanist.getDouble("latitude")
