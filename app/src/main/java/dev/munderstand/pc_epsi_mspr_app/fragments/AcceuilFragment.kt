@@ -138,11 +138,11 @@ class AcceuilFragment : Fragment() {
                     }
                     adapter.notifyDataSetChanged()
                 } catch (e: JSONException) {
-                    Log.e(TAG, "Error parsing JSON", e)
+                    //Log.e(TAG, "Error parsing JSON", e)
                 }
             },
             { error ->
-                Log.e(TAG, "Error fetching data", error)
+                //Log.e(TAG, "Error fetching data", error)
             }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()

@@ -32,10 +32,10 @@ class PlantIdentifyActivity : AppCompatActivity() {
         })
 
         val img = intent.extras?.getString("urlImg")
-        Log.e("WS", img.toString())
+//        //Log.e("WS", img.toString())
         val oriUrl = ApiConfig.BASE_URL_PHOTOS + img
         val encodedUrl = Base64.getUrlEncoder().encodeToString(img?.toByteArray())
-        Log.e("WS", encodedUrl.toString())
+//        //Log.e("WS", encodedUrl.toString())
 
         val okHttpClient: OkHttpClient = OkHttpClient.Builder().build()
         val mRequestUrl = "https://plant.id/api/v2/identify"
@@ -76,7 +76,7 @@ class PlantIdentifyActivity : AppCompatActivity() {
                 val data = response.body?.string()
 //                val jsonArray = JSONArray(data)
 
-                Log.e("WS", data.toString())
+                //Log.e("WS", data.toString())
             }
 
         })

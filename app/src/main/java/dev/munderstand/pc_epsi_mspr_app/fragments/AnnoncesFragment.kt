@@ -95,7 +95,7 @@ class AnnoncesFragment : Fragment() {
                     annonceAdapter.notifyDataSetChanged()
                 })
                 if (data != null) {
-                    Log.e("WS", data)
+                    //Log.e("WS", data)
                 }
             }
 

@@ -121,7 +121,7 @@ class BotanistesFragment : Fragment() {
                     }
                     adapter.notifyDataSetChanged()
                 } catch (e: JSONException) {
-                    Log.e(TAG, "Error parsing JSON", e)
+                    //Log.e(TAG, "Error parsing JSON", e)
                 }
                 finally {
                     // Hide the refresh indicator
@@ -129,7 +129,7 @@ class BotanistesFragment : Fragment() {
                 }
             },
             { error ->
-                Log.e(TAG, "Error fetching data", error)
+                //Log.e(TAG, "Error fetching data", error)
                 // Hide the refresh indicator
                 swipeRefreshLayout.isRefreshing = false
             }

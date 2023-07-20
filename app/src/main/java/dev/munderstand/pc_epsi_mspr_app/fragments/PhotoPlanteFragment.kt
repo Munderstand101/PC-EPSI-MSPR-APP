@@ -109,7 +109,7 @@ class PhotoPlanteFragment : Fragment() {
             }
         } catch (ex: IOException) {
             // Error occurred while creating the File
-            Log.e(TAG, "Error capturing photo", ex)
+            //Log.e(TAG, "Error capturing photo", ex)
         }
     }
 
@@ -128,7 +128,7 @@ class PhotoPlanteFragment : Fragment() {
             }
         } catch (ex: IOException) {
             // Error occurred while creating the File
-            Log.e(TAG, "Error creating image file", ex)
+            //Log.e(TAG, "Error creating image file", ex)
             null
         }
     }
