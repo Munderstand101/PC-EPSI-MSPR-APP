@@ -20,6 +20,11 @@ class ApiConfig {
 
         const val BOTANIST_ENDPOINT = "$BASE_URL_API/botanist/"
 
+
+        const val CONVERSATIONS_ENDPOINT = "$BASE_URL_API/chat/chats/"
+        const val MESSAGES_ENDPOINT = "$BASE_URL_API/chat/messages/"
+        const val SEND_MESSAGES_ENDPOINT = "$BASE_URL_API/chat/send-message/"
+
         const val API_PLANT_ID_KEY = "zjvEs5ss0vRkBEiWgF8tiWYaEQfzp7uHycojAxbgtLZ8lAmuG9"
 //    val url = "http://127.0.0.1:8002/api/main/botaniste/"
 
