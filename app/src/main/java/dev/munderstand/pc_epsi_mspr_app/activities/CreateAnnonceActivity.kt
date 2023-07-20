@@ -104,15 +104,15 @@ class CreateAnnonceActivity : AppCompatActivity() {
                     val newPlant = Plant(id, name, description, pictureUrl)
                     items.add(newPlant)
                     plantes[id] = newPlant
-                    Log.e("WS", item.toString())
+//                    //Log.e("WS", item.toString())
                 }
 
-                Log.e("WS", items.toString())
+//                //Log.e("WS", items.toString())
                 adapter.notifyDataSetChanged()
                 populateSpinner()
             },
             { error ->
-                Log.e(AcceuilFragment.TAG, "Error fetching data", error)
+                //Log.e(AcceuilFragment.TAG, "Error fetching data", error)
             }) {
             override fun getHeaders(): MutableMap<String, String> {
                 val headers = HashMap<String, String>()
@@ -209,10 +209,10 @@ class CreateAnnonceActivity : AppCompatActivity() {
                                                 Toast.LENGTH_SHORT
                                             ).show()
                                         }
-                                        Log.e(
-                                            "CreateAnnonceActivity",
-                                            "Invalid response from the server"
-                                        )
+                                        //Log.e(
+//                                            "CreateAnnonceActivity",
+//                                            "Invalid response from the server"
+//                                        )
                                     }
                                 } else {
                                     if (jsonObject.has("errors")) {
@@ -243,10 +243,10 @@ class CreateAnnonceActivity : AppCompatActivity() {
                                                 Toast.LENGTH_SHORT
                                             ).show()
                                         }
-                                        Log.e(
-                                            "CreateAnnonceActivity",
-                                            "Invalid response from the server"
-                                        )
+                                        //Log.e(
+//                                            "CreateAnnonceActivity",
+//                                            "Invalid response from the server"
+//                                        )
                                     }
                                 }
                             } catch (e: JSONException) {
@@ -258,7 +258,7 @@ class CreateAnnonceActivity : AppCompatActivity() {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
-                                Log.e("CreateAnnonceActivity", "Failed to parse response", e)
+                                //Log.e("CreateAnnonceActivity", "Failed to parse response", e)
                             }
                         }
                     })

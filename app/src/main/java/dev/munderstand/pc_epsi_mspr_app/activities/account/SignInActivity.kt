@@ -48,20 +48,15 @@ class SignInActivity : AppCompatActivity() {
 
     private fun login(username: String, password: String) {
         val client = OkHttpClient()
-
         val url = ApiConfig.LOGIN_ENDPOINT
-
         val jsonBody = JSONObject()
         jsonBody.put("username", username)
         jsonBody.put("password", password)
-
         val requestBody = RequestBody.create("application/json".toMediaTypeOrNull(), jsonBody.toString())
-
         val request = Request.Builder()
             .url(url)
             .post(requestBody)
             .build()
-
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
@@ -78,7 +73,6 @@ class SignInActivity : AppCompatActivity() {
                 try {
                     val jsonObject = JSONObject(responseBody)
                     val token = jsonObject.getString("token") // Extract the token from the response
-
                     // Store the token or use it for further API requests
                     val sharedPreferences = getSharedPreferences("account", Context.MODE_PRIVATE)
                     val editor = sharedPreferences.edit()

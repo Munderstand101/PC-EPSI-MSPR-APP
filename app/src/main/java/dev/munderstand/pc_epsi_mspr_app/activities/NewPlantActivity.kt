@@ -115,7 +115,7 @@ class NewPlantActivity : AppCompatActivity() {
             }
         } catch (ex: IOException) {
             // Error occurred while creating the File
-            Log.e(TAG, "Error capturing photo", ex)
+            //Log.e(TAG, "Error capturing photo", ex)
         }
     }
 
@@ -132,7 +132,7 @@ class NewPlantActivity : AppCompatActivity() {
             }
         } catch (ex: IOException) {
             // Error occurred while creating the File
-            Log.e(TAG, "Error creating image file", ex)
+            //Log.e(TAG, "Error creating image file", ex)
             null
         }
     }
@@ -212,7 +212,7 @@ class NewPlantActivity : AppCompatActivity() {
                 val responseBody = response.body?.string()
                 try {
                     val jsonObject = JSONObject(responseBody)
-                    Log.e("WS", jsonObject.toString())
+                    //Log.e("WS", jsonObject.toString())
                     // Handle the response data if needed
                     runOnUiThread {
                         Toast.makeText(

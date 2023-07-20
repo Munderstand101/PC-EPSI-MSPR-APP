@@ -82,11 +82,11 @@ class RechercheBotanistFragment : Fragment() {
 //                    }
 //                    adapter.notifyDataSetChanged()
 //                } catch (e: JSONException) {
-//                //    Log.e(RechercheBotanistFragment.TAG, "Error parsing JSON", e)
+//                //    //Log.e(RechercheBotanistFragment.TAG, "Error parsing JSON", e)
 //                }
 //            },
 //            { error ->
-//             //   Log.e(RechercheBotanistFragment.TAG, "Error fetching data", error)
+//             //   //Log.e(RechercheBotanistFragment.TAG, "Error fetching data", error)
 //            })
 //
 //        queue.add(jsonObjectRequest)

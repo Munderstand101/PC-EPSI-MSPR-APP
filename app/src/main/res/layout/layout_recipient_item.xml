@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="8dp">
+
+    <!-- Profile Picture -->
+
+    <ImageView
+        android:id="@+id/iv_profile_picture"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/round_background"
+        android:scaleType="centerCrop"
+        android:clipToOutline="true"
+        app:srcCompat="@drawable/profile_back_button"
+        android:layout_margin="10dp"/>
+
+    <!-- Recipient Message Bubble -->
+    <LinearLayout
+        android:id="@+id/recipientBubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/flat_radius_shape"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/tvRecipientMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I'm doing good! How about you?"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvRecipientMessageTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12:36 PM"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -81,6 +81,8 @@
     <string name="cr_er_une_demande_de_garde">Créer une demande de garde</string>
     <string name="cr_er_une_demande_de_garde_de_plante">Créer une demande de garde de plante</string>
     <string name="voir_mes_demandes_de_garde">Voir mes demandes de garde</string>
+    <string name="type_your_message">Type your message...</string>
+    <string name="mesConv">Mes conversations</string>
     <string name="compte">Compte</string>
 
 </resources>

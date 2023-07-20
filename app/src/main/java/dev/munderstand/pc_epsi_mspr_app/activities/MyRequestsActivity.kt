@@ -85,7 +85,7 @@ class MyRequestsActivity : AppCompatActivity() {
                         })
 
                         if (data != null) {
-                            Log.e("WS", data)
+                            //Log.e("WS", data)
                         }
                     }
                     override fun onFailure(call: Call, e: IOException) {

@@ -142,11 +142,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 }
             },
             Response.ErrorListener { error ->
-                Log.e(
-                    MapFragment::class.java.simpleName,
-                    "Error fetching botanists",
-                    error
-                )
+                //Log.e(
+//                    MapFragment::class.java.simpleName,
+//                    "Error fetching botanists",
+//                    error
+//                )
                 Toast.makeText(
                     requireContext(),
                     "Error fetching botanists: ${error.message}",

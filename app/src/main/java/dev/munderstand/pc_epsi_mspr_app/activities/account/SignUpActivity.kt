@@ -120,7 +120,7 @@ class SignUpActivity : AppCompatActivity() {
                             runOnUiThread {
                                 Toast.makeText(this@SignUpActivity, "Invalid response from the server", Toast.LENGTH_SHORT).show()
                             }
-                            Log.e("SignUpActivity", "Invalid response from the server")
+                            //Log.e("SignUpActivity", "Invalid response from the server")
                         }
                     } else {
                         if (jsonObject.has("errors")) {
@@ -143,7 +143,7 @@ class SignUpActivity : AppCompatActivity() {
                             runOnUiThread {
                                 Toast.makeText(this@SignUpActivity, "Invalid response from the server", Toast.LENGTH_SHORT).show()
                             }
-                            Log.e("SignUpActivity", "Invalid response from the server")
+                            //Log.e("SignUpActivity", "Invalid response from the server")
                         }
                     }
                 } catch (e: JSONException) {
@@ -151,7 +151,7 @@ class SignUpActivity : AppCompatActivity() {
                     runOnUiThread {
                         Toast.makeText(this@SignUpActivity, "Failed to parse response", Toast.LENGTH_SHORT).show()
                     }
-                    Log.e("SignUpActivity", "Failed to parse response", e)
+                    //Log.e("SignUpActivity", "Failed to parse response", e)
                 }
             }
         })
