@@ -48,7 +48,7 @@ class MessagesFragment : Fragment() {
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     // Interval for refreshing messages in milliseconds (5 seconds)
-    private val REFRESH_INTERVAL = 1000L
+    private val REFRESH_INTERVAL = 5000L // 5 seconds
 
     // Handler and Runnable for refreshing messages
     private val handler = Handler()
@@ -66,7 +66,6 @@ class MessagesFragment : Fragment() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -75,12 +74,13 @@ class MessagesFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_messages, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -88,20 +88,23 @@ class MessagesFragment : Fragment() {
         recyclerView = view.findViewById(R.id.rcv_messages)
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-       // adapter = MessageAdapter(items)
+        // Initialize the adapter
         adapter = MessageAdapter(items, requireContext())
         recyclerView.adapter = adapter
 
+        // Retrieve account information and token from SharedPreferences
         val sharedPreferences = activity?.getSharedPreferences("account", Context.MODE_PRIVATE)
         val accountInfo = sharedPreferences?.getString("accountInfo", "")
         val token = sharedPreferences?.getString("token", "")
 
+        // Parse the account information from JSON
         val jsonObject = JSONObject(accountInfo.toString())
         val accountId = jsonObject.getInt("id").toString()
 
         // Retrieve the conversationId from the fragment's arguments
         val conversationId = arguments?.getInt("conversationId") ?: 0
 
+        // Get user details from arguments and set them in the views
         val firstName = arguments?.getString("firstName") ?: ""
         val lastName = arguments?.getString("lastName") ?: ""
         val username = arguments?.getString("username") ?: ""
@@ -110,10 +113,10 @@ class MessagesFragment : Fragment() {
         val textViewFullName = view.findViewById<TextView>(R.id.tvFullName)
         val textViewUserName = view.findViewById<TextView>(R.id.tvUsername)
         val imageViewUser = view.findViewById<ImageView>(R.id.ivProfileImage)
-        textViewFullName.text  = "$firstName $lastName"
-        textViewUserName.text  = "$username"
-        textViewUserName.text  = "$username"
+        textViewFullName.text = "$firstName $lastName"
+        textViewUserName.text = "@$username"
 
+        // Load user's profile image using Picasso or any other image loading library
         if (!pictureUrl.isNullOrEmpty()) {
             Picasso.get().load(pictureUrl).into(imageViewUser)
         } else {
@@ -121,7 +124,7 @@ class MessagesFragment : Fragment() {
             Picasso.get().load(R.drawable.ic_growing_plant_black).into(imageViewUser)
         }
 
-
+        // Fetch messages when the fragment is created
         fetchMessages(conversationId.toString(), token.toString())
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
@@ -130,33 +133,28 @@ class MessagesFragment : Fragment() {
             fetchMessages(conversationId.toString(), token.toString())
         }
 
-
         val btnSend = view.findViewById<ImageView>(R.id.btnSend)
         val etMessage = view.findViewById<EditText>(R.id.etMessage)
 
         btnSend.setOnClickListener {
             val messageContent = etMessage.text.toString().trim()
             if (messageContent.isNotEmpty()) {
-                val sharedPreferences = activity?.getSharedPreferences("account", Context.MODE_PRIVATE)
-                val accountInfo = sharedPreferences?.getString("accountInfo", "")
-                val token = sharedPreferences?.getString("token", "")
-
-                val jsonObject = JSONObject(accountInfo.toString())
-                val accountId = jsonObject.getInt("id").toString()
-
                 // Pass the callback to sendMessage
-                sendMessage(messageContent, conversationId.toString(), token.toString(), object : OnMessageSentListener {
-                    override fun onMessageSent() {
-                        // Fetch messages after sending the new message successfully
-                        fetchMessages(conversationId.toString(), token.toString())
+                sendMessage(
+                    messageContent,
+                    conversationId.toString(),
+                    token.toString(),
+                    object : OnMessageSentListener {
+                        override fun onMessageSent() {
+                            // Fetch messages after sending the new message successfully
+                            fetchMessages(conversationId.toString(), token.toString())
+                        }
                     }
-                })
+                )
 
                 etMessage.text.clear()
             }
         }
-
-
     }
 
     override fun onResume() {
@@ -172,14 +170,16 @@ class MessagesFragment : Fragment() {
     }
 
     private fun fetchMessages(id: String, token: String) {
-        //Log.e("MS id : ", id)
-        val messages = arrayListOf<Message>()
+        // Clear the existing messages before fetching new ones
+        items.clear()
 
         val okHttpClient: OkHttpClient = OkHttpClient.Builder().build()
         val mRequestUrl = ApiConfig.MESSAGES_ENDPOINT + id
-        val request =
-            Request.Builder().url(mRequestUrl).header("Authorization", "Bearer $token")
-                .cacheControl(CacheControl.FORCE_NETWORK).build()
+        val request = Request.Builder()
+            .url(mRequestUrl)
+            .header("Authorization", "Bearer $token")
+            .cacheControl(CacheControl.FORCE_NETWORK)
+            .build()
 
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
@@ -201,22 +201,19 @@ class MessagesFragment : Fragment() {
                         jsAnnonce.getJSONObject("sender").getString("picture_url"),
                         createdAt // Pass the createdAt date to the Message object
                     )
-                    messages.add(message)
+                    items.add(message)
                 }
 
                 // Update the UI on the main thread
                 activity?.runOnUiThread {
-                    items.clear()
-                    items.addAll(messages)
                     adapter.notifyDataSetChanged()
                     swipeRefreshLayout.isRefreshing = false
-
                     // Scroll to the bottom of the RecyclerView after updating the data
                     scrollToBottom()
                 }
 
                 data?.let {
-                    //Log.e("WS data : ", it)
+                    // Log.e("WS data : ", it)
                 }
             }
 
@@ -235,12 +232,11 @@ class MessagesFragment : Fragment() {
         return try {
             sdf.parse(dateString.toString())
         } catch (e: ParseException) {
-           // Log.e("MessagesFragment", "Error parsing date: $dateString")
+            // Log.e("MessagesFragment", "Error parsing date: $dateString")
             // Return the current date and time if parsing fails
             Date()
         } ?: Date()
     }
-
 
     private fun sendMessage(
         messageContent: String,
@@ -289,18 +285,23 @@ class MessagesFragment : Fragment() {
         })
     }
 
-
     interface OnMessageSentListener {
         fun onMessageSent()
     }
 
     private fun scrollToBottom() {
         // Scroll to the last item in the RecyclerView
-        recyclerView.scrollToPosition(adapter.itemCount - 2)
+        recyclerView.scrollToPosition(adapter.itemCount - 1)
     }
 
     companion object {
-        fun newInstance(conversationId: Int, firstName: String, lastName: String, username: String, pictureUrl: String): MessagesFragment {
+        fun newInstance(
+            conversationId: Int,
+            firstName: String,
+            lastName: String,
+            username: String,
+            pictureUrl: String
+        ): MessagesFragment {
             return MessagesFragment().apply {
                 arguments = Bundle().apply {
                     putInt("conversationId", conversationId)
@@ -312,6 +313,4 @@ class MessagesFragment : Fragment() {
             }
         }
     }
-
-
 }
