@@ -25,7 +25,7 @@ class BotanistAdapter(private val botanists: List<Botanist>) :
         val botanist = botanists[position]
 
         holder.itemView.apply {
-            findViewById<TextView>(R.id.tv_ProductName).text = botanist.name
+            findViewById<TextView>(R.id.tv_ProductName).text = botanist.firstname + " " + botanist.lastname
             findViewById<TextView>(R.id.tv_Desc).text = botanist.specialization
 
             val imageViewBotanist = findViewById<ImageView>(R.id.iv_Product)
@@ -41,12 +41,14 @@ class BotanistAdapter(private val botanists: List<Botanist>) :
             setOnClickListener {
                 // Handle botanist item click event
                 val context = holder.itemView.context
-                Toast.makeText(context, botanist.name, Toast.LENGTH_SHORT).show()
 
                 // Open BotanistDetailsActivity and pass the botanist details as intent extras
                 // Replace BotanistDetailsActivity::class.java with your actual activity class
                 val intent = Intent(context, BotanistDetailsActivity::class.java)
-                intent.putExtra("name", botanist.name)
+                intent.putExtra("id", botanist.id)
+                intent.putExtra("firstname", botanist.firstname)
+                intent.putExtra("lastname", botanist.lastname)
+                intent.putExtra("username", botanist.username)
                 intent.putExtra("specialization", botanist.specialization)
                 intent.putExtra("address", botanist.address)
                 intent.putExtra("pictureUrl", botanist.pictureUrl)

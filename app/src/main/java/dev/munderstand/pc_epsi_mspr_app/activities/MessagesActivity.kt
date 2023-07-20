@@ -1,14 +1,12 @@
 package dev.munderstand.pc_epsi_mspr_app.activities
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -92,9 +90,8 @@ class MessagesActivity : BaseActivity() {
         val textViewFullName = findViewById<TextView>(R.id.tvFullName)
         val textViewUserName = findViewById<TextView>(R.id.tvUsername)
         val imageViewUser = findViewById<ImageView>(R.id.ivProfileImage)
-        textViewFullName.text  = "$firstName $lastName"
-        textViewUserName.text  = "$username"
-        textViewUserName.text  = "$username"
+        textViewFullName.text = "$firstName $lastName"
+        textViewUserName.text = "@$username"
 
         if (!pictureUrl.isNullOrEmpty()) {
             Picasso.get().load(pictureUrl).into(imageViewUser)
@@ -119,21 +116,18 @@ class MessagesActivity : BaseActivity() {
         btnSend.setOnClickListener {
             val messageContent = etMessage.text.toString().trim()
             if (messageContent.isNotEmpty()) {
-                val sharedPreferences = getSharedPreferences("account", Context.MODE_PRIVATE)
-                val accountInfo = sharedPreferences?.getString("accountInfo", "")
-                val token = sharedPreferences?.getString("token", "")
-
-                val jsonObject = JSONObject(accountInfo.toString())
-                val accountId = jsonObject.getInt("id").toString()
-
                 // Pass the callback to sendMessage
-                sendMessage(messageContent, conversationId.toString(), token.toString(), object :
-                    OnMessageSentListener {
-                    override fun onMessageSent() {
-                        // Fetch messages after sending the new message successfully
-                        fetchMessages(conversationId.toString(), token.toString())
+                sendMessage(
+                    messageContent,
+                    conversationId.toString(),
+                    token.toString(),
+                    object : MessagesFragment.OnMessageSentListener {
+                        override fun onMessageSent() {
+                            // Fetch messages after sending the new message successfully
+                            fetchMessages(conversationId.toString(), token.toString())
+                        }
                     }
-                })
+                )
 
                 etMessage.text.clear()
             }
@@ -153,14 +147,16 @@ class MessagesActivity : BaseActivity() {
     }
 
     private fun fetchMessages(id: String, token: String) {
-        //Log.e("MS id : ", id)
-        val messages = arrayListOf<Message>()
+        // Clear the existing messages before fetching new ones
+        items.clear()
 
         val okHttpClient: OkHttpClient = OkHttpClient.Builder().build()
         val mRequestUrl = ApiConfig.MESSAGES_ENDPOINT + id
-        val request =
-            Request.Builder().url(mRequestUrl).header("Authorization", "Bearer $token")
-                .cacheControl(CacheControl.FORCE_NETWORK).build()
+        val request = Request.Builder()
+            .url(mRequestUrl)
+            .header("Authorization", "Bearer $token")
+            .cacheControl(CacheControl.FORCE_NETWORK)
+            .build()
 
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
@@ -182,22 +178,19 @@ class MessagesActivity : BaseActivity() {
                         jsAnnonce.getJSONObject("sender").getString("picture_url"),
                         createdAt // Pass the createdAt date to the Message object
                     )
-                    messages.add(message)
+                    items.add(message)
                 }
 
                 // Update the UI on the main thread
                 runOnUiThread {
-                    items.clear()
-                    items.addAll(messages)
                     adapter.notifyDataSetChanged()
                     swipeRefreshLayout.isRefreshing = false
-
                     // Scroll to the bottom of the RecyclerView after updating the data
                     scrollToBottom()
                 }
 
                 data?.let {
-                    //Log.e("WS data : ", it)
+                    // Log.e("WS data : ", it)
                 }
             }
 
@@ -227,7 +220,7 @@ class MessagesActivity : BaseActivity() {
         messageContent: String,
         accountId: String,
         token: String,
-        onMessageSentListener: OnMessageSentListener?
+        onMessageSentListener: MessagesFragment.OnMessageSentListener
     ) {
         val okHttpClient: OkHttpClient = OkHttpClient.Builder().build()
 
@@ -277,6 +270,6 @@ class MessagesActivity : BaseActivity() {
 
     private fun scrollToBottom() {
         // Scroll to the last item in the RecyclerView
-        recyclerView.scrollToPosition(adapter.itemCount - 2)
+        recyclerView.scrollToPosition(adapter.itemCount - 1)
     }
 }

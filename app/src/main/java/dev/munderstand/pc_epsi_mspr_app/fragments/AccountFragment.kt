@@ -11,17 +11,18 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.squareup.picasso.Picasso
 import dev.munderstand.pc_epsi_mspr_app.R
-import dev.munderstand.pc_epsi_mspr_app.activities.MainActivity
 import dev.munderstand.pc_epsi_mspr_app.activities.MyRequestsActivity
+import dev.munderstand.pc_epsi_mspr_app.activities.account.SignInActivity
 import dev.munderstand.pc_epsi_mspr_app.activities.common.ApiConfig
 import org.json.JSONException
 import org.json.JSONObject
@@ -57,6 +58,25 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val buttonDeconnexion = view.findViewById<Button>(R.id.buttonDeconnexion)
+
+        buttonDeconnexion.setOnClickListener {
+            val sharedPreferences = context?.getSharedPreferences("account", Context.MODE_PRIVATE)
+
+            // Obtenez la liste de tous les fichiers SharedPreferences
+            val allSharedPreferencesFiles = sharedPreferences?.all
+
+            // Supprimez tous les fichiers un par un
+            allSharedPreferencesFiles?.keys?.forEach { key ->
+                sharedPreferences.edit {
+                    remove(key)
+                }
+            }
+
+            val intent = Intent(activity?.applicationContext, SignInActivity::class.java)
+            startActivity(intent)
+        }
 
         recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(activity)

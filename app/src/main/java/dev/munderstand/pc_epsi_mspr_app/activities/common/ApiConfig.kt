@@ -23,7 +23,7 @@ class ApiConfig {
 
 
         const val CONVERSATIONS_ENDPOINT = "$BASE_URL_API/chat/chats/"
-        const val START_CONVERSATIONS_ENDPOINT = "$BASE_URL_API/chat/start_conv/3"
+        const val START_CONVERSATIONS_ENDPOINT = "$BASE_URL_API/chat/start_conv/"
         const val MESSAGES_ENDPOINT = "$BASE_URL_API/chat/messages/"
         const val SEND_MESSAGES_ENDPOINT = "$BASE_URL_API/chat/send-message/"
 

@@ -29,7 +29,7 @@ class SignInActivity : AppCompatActivity() {
         usernameEditText = findViewById(R.id.et_username)
         passwordEditText = findViewById(R.id.et_password)
 
-        usernameEditText.setText("test")
+        usernameEditText.setText("John")
         passwordEditText.setText("testtest")
 
         loginButton = findViewById(R.id.loginButton)
