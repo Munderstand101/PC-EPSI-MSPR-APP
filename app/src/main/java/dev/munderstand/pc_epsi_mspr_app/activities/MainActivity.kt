@@ -37,7 +37,7 @@ class MainActivity : BaseActivity() {
                     true
                 }
                 R.id.tabPlantes -> {
-                    replaceFragment(ConversationsFragment())
+                    replaceFragment(PlantesFragment())
                     true
                 }
                 R.id.tabAccount -> {

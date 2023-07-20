@@ -24,6 +24,7 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import dev.munderstand.pc_epsi_mspr_app.R
 import dev.munderstand.pc_epsi_mspr_app.activities.AnnoncesActivity
+import dev.munderstand.pc_epsi_mspr_app.activities.ConversationsActivity
 import dev.munderstand.pc_epsi_mspr_app.activities.CreateAnnonceActivity
 import dev.munderstand.pc_epsi_mspr_app.activities.MyRequestsActivity
 import dev.munderstand.pc_epsi_mspr_app.activities.NewPlantActivity
@@ -70,7 +71,8 @@ class AcceuilFragment : Fragment() {
         }
 
         messagesButton.setOnClickListener {
-
+            val intent = Intent(activity?.applicationContext, ConversationsActivity::class.java)
+            startActivity(intent)
         }
 
         newRequestButton.setOnClickListener {

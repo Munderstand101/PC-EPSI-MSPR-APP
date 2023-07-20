@@ -84,5 +84,6 @@
     <string name="type_your_message">Type your message...</string>
     <string name="mesConv">Mes conversations</string>
     <string name="compte">Compte</string>
+    <string name="voir_les_demandes">Voir les demandes</string>
 
 </resources>

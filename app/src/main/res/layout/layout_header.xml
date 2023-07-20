@@ -6,11 +6,12 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/iv_Left_Arrow"
-            android:layout_width="40dp"
-            android:layout_height="25dp"
-            android:layout_margin="15dp"
-            app:srcCompat="@drawable/back_to_home_button" />
+                android:id="@+id/iv_Left_Arrow"
+                android:layout_width="40dp"
+                android:layout_height="25dp"
+                android:layout_margin="15dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/back_to_home_button" />
 
         <TextView
             android:id="@+id/tv_title"

@@ -27,11 +27,6 @@ class MessageAdapter(val messages: MutableList<Message>, val context: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val message = messages[position]
 
-//        // Logging to check if the data is correctly retrieved
-//        Log.d("MessageAdapter", "First Name: ${message.firstName}")
-//        Log.d("MessageAdapter", "Last Name: ${message.lastName}")
-//        Log.d("MessageAdapter", "Username: ${message.username}")
-
         holder.textViewName.text = "${message.firstName} ${message.lastName}"
         holder.textViewDesc.text = message.content
 
@@ -48,10 +43,6 @@ class MessageAdapter(val messages: MutableList<Message>, val context: Context) :
         val accountInfo = sharedPreferences?.getString("accountInfo", "")
         val jsonObject = JSONObject(accountInfo.toString())
         val accountId = jsonObject.getInt("id").toString()
-
-        // Extract the account ID from SharedPreferences
-      //  val accountId = sharedPreferences.getInt("id", 0).toString()
-        //Log.e("MS accountId : ", accountId)
 
         // Determine the layout based on target_id
         val currentUserId = accountId.toInt() // Your current user's ID (parsed from SharedPreferences)

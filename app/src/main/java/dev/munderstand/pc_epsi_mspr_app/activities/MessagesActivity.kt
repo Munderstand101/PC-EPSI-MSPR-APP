@@ -1,51 +1,48 @@
-package dev.munderstand.pc_epsi_mspr_app.fragments
+package dev.munderstand.pc_epsi_mspr_app.activities
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.squareup.picasso.Picasso
 import dev.munderstand.pc_epsi_mspr_app.R
 import dev.munderstand.pc_epsi_mspr_app.activities.common.ApiConfig
-import okhttp3.*
+import dev.munderstand.pc_epsi_mspr_app.activities.common.BaseActivity
+import dev.munderstand.pc_epsi_mspr_app.fragments.Message
+import dev.munderstand.pc_epsi_mspr_app.fragments.MessageAdapter
+import dev.munderstand.pc_epsi_mspr_app.fragments.MessagesFragment
+import okhttp3.CacheControl
+import okhttp3.Call
+import okhttp3.Callback
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import kotlin.properties.Delegates
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MessagesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class MessagesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class MessagesActivity : BaseActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MessageAdapter
     private val items = mutableListOf<Message>()
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private var conversationId by Delegates.notNull<Int>()
 
     // Interval for refreshing messages in milliseconds (5 seconds)
     private val REFRESH_INTERVAL = 1000L
@@ -55,9 +52,9 @@ class MessagesFragment : Fragment() {
     private val refreshRunnable = object : Runnable {
         override fun run() {
             // Fetch messages periodically
-            val sharedPreferences = activity?.getSharedPreferences("account", Context.MODE_PRIVATE)
+            val sharedPreferences = getSharedPreferences("account", Context.MODE_PRIVATE)
             val token = sharedPreferences?.getString("token", "")
-            arguments?.getInt("conversationId")?.let {
+            conversationId.let {
                 fetchMessages(it.toString(), token.toString())
             }
 
@@ -66,33 +63,19 @@ class MessagesFragment : Fragment() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+        setContentView(R.layout.activity_messages)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_messages, container, false)
-    }
+        showBack()
 
+        recyclerView = findViewById(R.id.rcv_messages)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        recyclerView = view.findViewById(R.id.rcv_messages)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-
-       // adapter = MessageAdapter(items)
-        adapter = MessageAdapter(items, requireContext())
+        adapter = MessageAdapter(items, this)
         recyclerView.adapter = adapter
 
-        val sharedPreferences = activity?.getSharedPreferences("account", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("account", Context.MODE_PRIVATE)
         val accountInfo = sharedPreferences?.getString("accountInfo", "")
         val token = sharedPreferences?.getString("token", "")
 
@@ -100,16 +83,15 @@ class MessagesFragment : Fragment() {
         val accountId = jsonObject.getInt("id").toString()
 
         // Retrieve the conversationId from the fragment's arguments
-        val conversationId = arguments?.getInt("conversationId") ?: 0
+        conversationId = intent.extras?.getInt("user_cible_id")!!
+        val firstName = intent.extras?.getString("user_cible_firstName")!!
+        val lastName = intent.extras?.getString("user_cible_lastName")!!
+        val username = intent.extras?.getString("user_cible_username")!!
+        val pictureUrl = intent.extras?.getString("user_cible_pictureUrl")!!
 
-        val firstName = arguments?.getString("firstName") ?: ""
-        val lastName = arguments?.getString("lastName") ?: ""
-        val username = arguments?.getString("username") ?: ""
-        val pictureUrl = arguments?.getString("pictureUrl") ?: ""
-
-        val textViewFullName = view.findViewById<TextView>(R.id.tvFullName)
-        val textViewUserName = view.findViewById<TextView>(R.id.tvUsername)
-        val imageViewUser = view.findViewById<ImageView>(R.id.ivProfileImage)
+        val textViewFullName = findViewById<TextView>(R.id.tvFullName)
+        val textViewUserName = findViewById<TextView>(R.id.tvUsername)
+        val imageViewUser = findViewById<ImageView>(R.id.ivProfileImage)
         textViewFullName.text  = "$firstName $lastName"
         textViewUserName.text  = "$username"
         textViewUserName.text  = "$username"
@@ -124,20 +106,20 @@ class MessagesFragment : Fragment() {
 
         fetchMessages(conversationId.toString(), token.toString())
 
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout)
         swipeRefreshLayout.setOnRefreshListener {
             // Refresh data when the user swipes down
             fetchMessages(conversationId.toString(), token.toString())
         }
 
 
-        val btnSend = view.findViewById<ImageView>(R.id.btnSend)
-        val etMessage = view.findViewById<EditText>(R.id.etMessage)
+        val btnSend = findViewById<ImageView>(R.id.btnSend)
+        val etMessage = findViewById<EditText>(R.id.etMessage)
 
         btnSend.setOnClickListener {
             val messageContent = etMessage.text.toString().trim()
             if (messageContent.isNotEmpty()) {
-                val sharedPreferences = activity?.getSharedPreferences("account", Context.MODE_PRIVATE)
+                val sharedPreferences = getSharedPreferences("account", Context.MODE_PRIVATE)
                 val accountInfo = sharedPreferences?.getString("accountInfo", "")
                 val token = sharedPreferences?.getString("token", "")
 
@@ -145,7 +127,8 @@ class MessagesFragment : Fragment() {
                 val accountId = jsonObject.getInt("id").toString()
 
                 // Pass the callback to sendMessage
-                sendMessage(messageContent, conversationId.toString(), token.toString(), object : OnMessageSentListener {
+                sendMessage(messageContent, conversationId.toString(), token.toString(), object :
+                    OnMessageSentListener {
                     override fun onMessageSent() {
                         // Fetch messages after sending the new message successfully
                         fetchMessages(conversationId.toString(), token.toString())
@@ -155,8 +138,6 @@ class MessagesFragment : Fragment() {
                 etMessage.text.clear()
             }
         }
-
-
     }
 
     override fun onResume() {
@@ -205,7 +186,7 @@ class MessagesFragment : Fragment() {
                 }
 
                 // Update the UI on the main thread
-                activity?.runOnUiThread {
+                runOnUiThread {
                     items.clear()
                     items.addAll(messages)
                     adapter.notifyDataSetChanged()
@@ -221,8 +202,8 @@ class MessagesFragment : Fragment() {
             }
 
             override fun onFailure(call: Call, e: IOException) {
-                activity?.runOnUiThread {
-                    Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
+                runOnUiThread {
+                    Toast.makeText(application, e.message, Toast.LENGTH_SHORT).show()
                     swipeRefreshLayout.isRefreshing = false
                 }
             }
@@ -235,7 +216,7 @@ class MessagesFragment : Fragment() {
         return try {
             sdf.parse(dateString.toString())
         } catch (e: ParseException) {
-           // Log.e("MessagesFragment", "Error parsing date: $dateString")
+            // Log.e("MessagesFragment", "Error parsing date: $dateString")
             // Return the current date and time if parsing fails
             Date()
         } ?: Date()
@@ -262,11 +243,11 @@ class MessagesFragment : Fragment() {
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onResponse(call: Call, response: Response) {
                 val responseData = response.body?.string()
-                activity?.runOnUiThread {
+                runOnUiThread {
                     if (response.isSuccessful) {
                         // Message sent successfully, handle the response if needed
                         // For example, you can show a toast message
-                        Toast.makeText(activity, "Message sent successfully!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(application, "Message sent successfully!", Toast.LENGTH_SHORT).show()
 
                         // Call the callback to trigger message refresh
                         onMessageSentListener?.onMessageSent()
@@ -274,16 +255,16 @@ class MessagesFragment : Fragment() {
                     } else {
                         // Message sending failed, handle the error response if needed
                         // For example, you can show a toast message
-                        Toast.makeText(activity, "Failed to send message.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(application, "Failed to send message.", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
 
             override fun onFailure(call: Call, e: IOException) {
-                activity?.runOnUiThread {
+                runOnUiThread {
                     // Message sending failed, handle the error if needed
                     // For example, you can show a toast message
-                    Toast.makeText(activity, "Failed to send message.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(application, "Failed to send message.", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -298,20 +279,4 @@ class MessagesFragment : Fragment() {
         // Scroll to the last item in the RecyclerView
         recyclerView.scrollToPosition(adapter.itemCount - 2)
     }
-
-    companion object {
-        fun newInstance(conversationId: Int, firstName: String, lastName: String, username: String, pictureUrl: String): MessagesFragment {
-            return MessagesFragment().apply {
-                arguments = Bundle().apply {
-                    putInt("conversationId", conversationId)
-                    putString("firstName", firstName)
-                    putString("lastName", lastName)
-                    putString("username", username)
-                    putString("pictureUrl", pictureUrl)
-                }
-            }
-        }
-    }
-
-
 }

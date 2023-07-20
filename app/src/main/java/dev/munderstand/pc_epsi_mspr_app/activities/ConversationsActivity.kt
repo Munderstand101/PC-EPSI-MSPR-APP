@@ -1,47 +1,46 @@
-package dev.munderstand.pc_epsi_mspr_app.fragments
+package dev.munderstand.pc_epsi_mspr_app.activities
 
 import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import dev.munderstand.pc_epsi_mspr_app.R
-import dev.munderstand.pc_epsi_mspr_app.activities.Conversation
-import dev.munderstand.pc_epsi_mspr_app.activities.ConversationAdapter
 import dev.munderstand.pc_epsi_mspr_app.activities.common.ApiConfig
-import okhttp3.*
+import dev.munderstand.pc_epsi_mspr_app.activities.common.BaseActivity
+import okhttp3.CacheControl
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 
-class ConversationsFragment : Fragment() {
+class ConversationsActivity : BaseActivity() {
+
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ConversationAdapter
     private val items = mutableListOf<Conversation>()
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_conversations, container, false)
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_conversations)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        setHeaderTxt("Vos conversations")
+        showBack()
 
-        recyclerView = view.findViewById(R.id.rcv_conversations)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView = findViewById<RecyclerView>(R.id.rcv_conversations)
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
         adapter = ConversationAdapter(items)
         recyclerView.adapter = adapter
 
-        val sharedPreferences = activity?.getSharedPreferences("account", Context.MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("account", Context.MODE_PRIVATE)
         val accountInfo = sharedPreferences?.getString("accountInfo", "")
         val token = sharedPreferences?.getString("token", "")
 
@@ -49,7 +48,7 @@ class ConversationsFragment : Fragment() {
         val accountId = jsonObject.getInt("id").toString()
         fetchConversations(accountId, token.toString())
 
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
+        swipeRefreshLayout = findViewById<SwipeRefreshLayout>(R.id.swipe_refresh_layout)
         swipeRefreshLayout.setOnRefreshListener {
             // Refresh data when the user swipes down
             fetchConversations(accountId, token.toString())
@@ -87,7 +86,7 @@ class ConversationsFragment : Fragment() {
                 }
 
                 // Update the UI on the main thread
-                activity?.runOnUiThread {
+                runOnUiThread {
                     items.clear()
                     items.addAll(conversations)
                     adapter.notifyDataSetChanged()
@@ -100,14 +99,11 @@ class ConversationsFragment : Fragment() {
             }
 
             override fun onFailure(call: Call, e: IOException) {
-                activity?.runOnUiThread {
-                    Toast.makeText(activity, e.message, Toast.LENGTH_SHORT).show()
+                runOnUiThread {
+                    Toast.makeText(application, e.message, Toast.LENGTH_SHORT).show()
                     swipeRefreshLayout.isRefreshing = false
                 }
             }
         })
     }
-
-
-
 }

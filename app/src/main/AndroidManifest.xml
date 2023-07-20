@@ -23,6 +23,12 @@
             android:theme="@style/Theme.Base"
             tools:targetApi="31">
         <activity
+                android:name=".activities.MessagesActivity"
+                android:exported="false" />
+        <activity
+                android:name=".activities.ConversationsActivity"
+                android:exported="false" />
+        <activity
                 android:name=".activities.AnnoncesActivity"
                 android:exported="false" />
         <activity

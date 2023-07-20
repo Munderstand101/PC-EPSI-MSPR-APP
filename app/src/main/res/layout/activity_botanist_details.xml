@@ -146,26 +146,30 @@
 
     </RelativeLayout>
 
-  <ScrollView
+    <ScrollView
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-<!--      <include layout="@layout/item_add"/>-->
-<!--      <include layout="@layout/item_info"/>-->
-<!--      <include layout="@layout/item_email"/>-->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
-  </ScrollView>
+        </LinearLayout>
+    </ScrollView>
 
-    <Button
-            android:text="Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button" />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/buttonSendMessages"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:src="@drawable/ic_round_message"
+                android:contentDescription="submit"
+                android:layout_margin="16dp" />
 
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </LinearLayout>

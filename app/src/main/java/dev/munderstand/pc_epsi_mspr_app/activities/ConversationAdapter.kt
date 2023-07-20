@@ -1,7 +1,7 @@
-package dev.munderstand.pc_epsi_mspr_app.fragments
+package dev.munderstand.pc_epsi_mspr_app.activities
 
-import android.content.Context
-import android.util.Log
+import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import dev.munderstand.pc_epsi_mspr_app.R
-import dev.munderstand.pc_epsi_mspr_app.activities.MainActivity
+import dev.munderstand.pc_epsi_mspr_app.fragments.MessagesFragment
 
 class ConversationAdapter(val conversations: MutableList<Conversation>) :
     RecyclerView.Adapter<ConversationAdapter.ViewHolder>() {
@@ -25,11 +25,6 @@ class ConversationAdapter(val conversations: MutableList<Conversation>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val conversation = conversations[position]
 
-        // Logging to check if the data is correctly retrieved
-//        Log.d("ConversationAdapter", "First Name: ${conversation.firstName}")
-//        Log.d("ConversationAdapter", "Last Name: ${conversation.lastName}")
-//        Log.d("ConversationAdapter", "Username: ${conversation.username}")
-
         holder.textViewName.text = "${conversation.firstName} ${conversation.lastName}"
         holder.textViewDesc.text = conversation.username
 
@@ -42,27 +37,15 @@ class ConversationAdapter(val conversations: MutableList<Conversation>) :
         }
 
         holder.contentLayout.setOnClickListener {
-            val conversationId = conversation.id
-            val firstName = conversation.firstName
-            val lastName = conversation.lastName
-            val username = conversation.username
-            val pictureUrl = conversation.pictureUrl
-            val targetFragment = MessagesFragment.newInstance(conversationId, firstName, lastName, username,pictureUrl)
-            val mainActivity = it.context as MainActivity
-            mainActivity.replaceFragment(targetFragment)
+            val activity = holder.itemView.context as Activity
+            val intent = Intent(activity?.applicationContext, MessagesActivity::class.java)
+            intent.putExtra("user_cible_id", conversation.id)
+            intent.putExtra("user_cible_firstName", conversation.firstName)
+            intent.putExtra("user_cible_lastName", conversation.lastName)
+            intent.putExtra("user_cible_username", conversation.username)
+            intent.putExtra("user_cible_pictureUrl", conversation.pictureUrl)
+            it.context.startActivity(intent)
         }
-
-
-        /*  holder.contentLayout.setOnClickListener {
-
-              // Start ConversationDetailsActivity on item click
-              /* val intent = Intent(holder.contentLayout.context, ConversationDetailsActivity::class.java)
-              // Pass any necessary data to ConversationDetailsActivity using intent extras
-              intent.putExtra("title", conversation.titre)
-              intent.putExtra("description", conversation.description)
-              intent.putExtra("pictureUrl", conversation.picture_url)
-              holder.contentLayout.context.startActivity(intent)*/
-          }*/
     }
 
     override fun getItemCount(): Int {

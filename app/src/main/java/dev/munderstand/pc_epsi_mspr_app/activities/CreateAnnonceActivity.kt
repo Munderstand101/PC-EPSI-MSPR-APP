@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import dev.munderstand.pc_epsi_mspr_app.R
 import dev.munderstand.pc_epsi_mspr_app.activities.common.ApiConfig
+import dev.munderstand.pc_epsi_mspr_app.activities.common.BaseActivity
 import dev.munderstand.pc_epsi_mspr_app.fragments.AcceuilFragment
 import dev.munderstand.pc_epsi_mspr_app.fragments.Plant
 import dev.munderstand.pc_epsi_mspr_app.fragments.PlantAdapter
@@ -23,7 +24,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
-class CreateAnnonceActivity : AppCompatActivity() {
+class CreateAnnonceActivity : BaseActivity() {
 
     private val TAG = "CreateAnnonceActivity"
     private val items = mutableListOf<Plant>()
@@ -42,6 +43,8 @@ class CreateAnnonceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_annonce)
 
+        showBack()
+
         initializeViews()
         populatePlants()
         setupCreateAnnonceButton()
@@ -50,11 +53,6 @@ class CreateAnnonceActivity : AppCompatActivity() {
     private fun initializeViews() {
         val pageTitle = findViewById<TextView>(R.id.tv_title)
         pageTitle.text = "Créer une demande de garde"
-
-        val imageViewBack = findViewById<ImageView>(R.id.iv_Left_Arrow)
-        imageViewBack.setOnClickListener {
-            finish()
-        }
 
         spinnerPlantes = findViewById(R.id.spinnerPlantes)
         editTextRequestTitle = findViewById(R.id.editTextRequestTitle)

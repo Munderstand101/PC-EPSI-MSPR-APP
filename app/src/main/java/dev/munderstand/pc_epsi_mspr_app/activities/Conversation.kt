@@ -1,4 +1,4 @@
-package dev.munderstand.pc_epsi_mspr_app.fragments
+package dev.munderstand.pc_epsi_mspr_app.activities
 
 class Conversation(
    val id: Int,
