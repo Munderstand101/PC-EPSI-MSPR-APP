@@ -97,8 +97,8 @@ class BotanistesFragment : Fragment() {
                     for (i in 0 until response.length()) {
                         val item = response.getJSONObject(i)
                         val id = item.getInt("id")
-                        val name = item.getString("name")
-                        val specialization = item.getString("specialization")
+                        val name = item.getString("fullName")
+                        val specialization = "Botaniste"
                         val address = item.getString("address")
                         val zipcode = item.getString("zipcode")
                         val city = item.getString("city")
