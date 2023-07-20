@@ -1,217 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".fragments.AccountFragment">
-    android:layout_height="match_parent">
-
-
-    <EditText
-        android:id="@+id/editTextText"
-    <androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/swipe_refresh_layout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Name" />
-        android:layout_height="wrap_content"
-        android:background="@color/color_white"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".fragments.AccountFragment" >
 
-    <EditText
-        android:id="@+id/editTextText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Name" />
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/search_view_current_location"
-            style="@style/SearchViewStyle"
-            android:layout_width="0dp"
+    <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:hint="@string/hint_search"
-            app:layout_constraintEnd_toStartOf="@+id/image_message"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/image_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/image_message"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/image_message"
-            app:srcCompat="@drawable/ic_round_settings"
-            app:tint="@color/color_gray" />
-
-        <ImageView
-            android:id="@+id/image_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/image_message"
-            app:layout_constraintEnd_toStartOf="@+id/image_settings"
-            app:layout_constraintTop_toTopOf="@+id/image_message"
-            app:srcCompat="@drawable/ic_round_add"
-            app:tint="@color/color_gray" />
-
-    <EditText
-        android:id="@+id/editTextText3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Name" />
-        <ImageView
-            android:id="@+id/image_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/search_view_current_location"
-            app:layout_constraintEnd_toStartOf="@+id/image_add"
-            app:layout_constraintTop_toTopOf="@+id/search_view_current_location"
-            app:srcCompat="@drawable/ic_round_message"
-            app:tint="@color/color_gray" />
+                android:id="@+id/image_user"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/round_background"
+                android:scaleType="centerCrop"
+                android:clipToOutline="true"
+                app:srcCompat="@drawable/profile_back_button"
+                android:layout_margin="10dp"/>
 
         <TextView
-            android:id="@+id/text_user_name"
+                android:id="@+id/text_user_name"
+                style="@style/TextViewHeaderStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="30dp"
+                android:textSize="36sp"
+                app:layout_constraintStart_toStartOf="parent" />
+
+    </LinearLayout>
+
+
+    <TextView
+            android:id="@+id/textRole"
             style="@style/TextViewHeaderStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/neha"
-            android:textSize="36sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_view_current_location" />
+            android:layout_marginTop="4dp"
+            android:textSize="14sp" />
 
-        <ImageView
-            android:id="@+id/image_user"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_user_name"
-            app:srcCompat="@drawable/profile_bk" />
-
-    <EditText
-        android:id="@+id/editTextText4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Name" />
-        <TextView
-            android:id="@+id/text_followers_following_count"
-            style="@style/TextViewHeaderStyle"
+    <Button
+            android:id="@+id/buttonMyRequests"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/show_followers_following_count"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_user_name" />
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/voir_mes_demandes_de_garde"
+            app:cornerRadius="@dimen/lay_12" />
 
-        <HorizontalScrollView
+    <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:scrollbars="none"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_followers_following_count">
+            app:layout_constraintTop_toBottomOf="@+id/text_details2">
 
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="8dp">
 
-    <EditText
-        android:id="@+id/editTextText5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Name" />
-                <TextView
+            <TextView
                     android:id="@+id/text_boards"
                     style="@style/TagViewStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
-                    android:text="@string/boards" />
+                    android:text="@string/myPlants" />
 
-                <TextView
-                    android:id="@+id/text_pins"
-                    style="@style/TextViewHeaderStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/pins"
-                    android:textColor="@color/color_gray" />
+        </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextText6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Name" />
-                <TextView
-                    android:id="@+id/text_tried"
-                    style="@style/TextViewHeaderStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/tried"
-                    android:textColor="@color/color_gray" />
+    </HorizontalScrollView>
 
-                <TextView
-                    android:id="@+id/text_followers"
-                    style="@style/TextViewHeaderStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/followers"
-                    android:textColor="@color/color_gray" />
-
-                <TextView
-                    android:id="@+id/text_tables"
-                    style="@style/TextViewHeaderStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="20dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/tables"
-                    android:textColor="@color/color_gray" />
-
-</LinearLayout>
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
-        <androidx.recyclerview.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -222,6 +92,4 @@
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
             />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>

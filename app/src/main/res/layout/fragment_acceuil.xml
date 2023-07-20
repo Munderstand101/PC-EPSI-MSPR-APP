@@ -1,18 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.AcceuilFragment"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".fragments.AcceuilFragment"
         android:orientation="vertical">
-
 
     <ImageView
             android:id="@+id/logo"
             android:layout_width="265dp"
             android:layout_height="220dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
             android:layout_marginTop="50dp"
             android:layout_gravity="center"
             android:contentDescription="Logo"
@@ -32,148 +30,48 @@
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/swipe_refresh_layout"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/image_user"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:background="@drawable/round_background"
-            android:scaleType="centerCrop"
-            android:clipToOutline="true"
-            app:srcCompat="@drawable/profile_back_button"
-            android:layout_margin="10dp"/>
-
-        <TextView
-            android:id="@+id/text_user_name"
-            style="@style/TextViewHeaderStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="30dp"
-            android:textSize="36sp"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </LinearLayout>
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textRole"
-        style="@style/TextViewHeaderStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textSize="14sp" />
-
 
                 <Button
                         android:id="@+id/messagesButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="117dp"
+                        android:layout_height="110dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="100dp"
                         android:layout_weight="1"
                         android:drawableTop="@drawable/ic_mail_white"
-                        android:text="Messages \n"
+                        android:text="Messages"
                         android:background="@drawable/button_selector" />
 
                 <Button
                         android:id="@+id/newRequestButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="117dp"
+                        android:layout_height="110dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="25dp"
                         android:layout_weight="1"
                         android:drawableTop="@drawable/ajouter"
-                        android:text="Nouvelle \ndemande"
+                        android:text="Nouvelle demande"
                         android:background="@drawable/button_selector" />
-    <Button
-        android:id="@+id/buttonAddRequest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="@string/cr_er_une_demande_de_garde"
-        app:cornerRadius="@dimen/lay_12" />
-
-    <Button
-        android:id="@+id/buttonMyRequests"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="@string/voir_mes_demandes_de_garde"
-        app:cornerRadius="@dimen/lay_12" />
-
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:scrollbars="none"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_details2">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/text_boards"
-                style="@style/TagViewStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@string/myPlants" />
-
-        </LinearLayout>
 
                 <Button
                         android:id="@+id/getRequestsButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="117dp"
+                        android:layout_height="110dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="25dp"
                         android:layout_marginBottom="25dp"
                         android:layout_weight="1"
                         android:drawableTop="@drawable/ic_plante_en_pot_white"
-                        android:text="Voir les \ndemandes"
+                        android:text="Voir les demandes"
                         android:background="@drawable/button_selector" />
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
-
-</LinearLayout>
-
-    </HorizontalScrollView>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="32dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-            />
 
 </LinearLayout>

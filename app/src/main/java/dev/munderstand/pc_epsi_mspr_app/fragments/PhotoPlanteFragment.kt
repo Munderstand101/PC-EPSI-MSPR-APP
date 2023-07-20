@@ -14,10 +14,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.FileProvider
 import dev.munderstand.pc_epsi_mspr_app.R
 import dev.munderstand.pc_epsi_mspr_app.activities.CreateAnnonceActivity
 import dev.munderstand.pc_epsi_mspr_app.activities.PlantIdentifyActivity
+import dev.munderstand.pc_epsi_mspr_app.activities.common.ApiConfig
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.File
 import java.io.IOException
@@ -64,15 +74,15 @@ class PhotoPlanteFragment : Fragment() {
 
         val buttonScan = view.findViewById<Button>(R.id.buttonScan)
         val uploadButton = view.findViewById<Button>(R.id.uploadButton)
+        val sharedPreferences = context?.getSharedPreferences("account", Context.MODE_PRIVATE)
+        val token = sharedPreferences?.getString("token", "")
 
         buttonScan.setOnClickListener {
             dispatchTakePictureIntent()
         }
 
         uploadButton.setOnClickListener {
-            val intent = Intent(activity?.applicationContext, PlantIdentifyActivity::class.java)
-            intent.putExtra("urlImg", currentPhotoPath)
-            startActivity(intent)
+            uploadPlantData(token.toString())
         }
     }
 
@@ -131,6 +141,174 @@ class PhotoPlanteFragment : Fragment() {
             Log.e(TAG, "Error creating image file", ex)
             null
         }
+    }
+
+//    private fun uploadPlantData(token: String) {
+//        // Create a multipart request body with the photo file
+//        val photoFile = File(currentPhotoPath)
+//        val requestFile: RequestBody =
+//            RequestBody.create("image/*".toMediaTypeOrNull(), photoFile)
+//        val photoPart: MultipartBody.Part =
+//            MultipartBody.Part.createFormData("photo", photoFile.name, requestFile)
+//
+//        // Create the request body
+//        val requestBody: RequestBody = MultipartBody.Builder()
+//            .setType(MultipartBody.FORM)
+//            .addPart(photoPart)
+//            .build()
+//
+//        val url = ApiConfig.PLANT_SCAN_ENDPOINT
+//
+//        // Create the request
+//        val client = OkHttpClient()
+//        val request = Request.Builder()
+//            .url(url)
+//            .header("Authorization", "Bearer $token")
+//            .post(requestBody)
+//            .build()
+//
+//        // Send the request asynchronously
+//        client.newCall(request).enqueue(object : okhttp3.Callback {
+//            override fun onFailure(call: okhttp3.Call, e: IOException) {
+//                // Handle the request failure
+//                activity?.runOnUiThread {
+//                    Toast.makeText(
+//                        context,
+//                        "Failed to upload plant data",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//
+//            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+//                // Handle the request success
+//                val responseBody = response.body?.string()
+//                try {
+//                    val jsonObject = JSONObject(responseBody)
+//                    Log.e("WS", jsonObject.toString())
+//                    // Handle the response data if needed
+//                    activity?.runOnUiThread {
+//                        Toast.makeText(
+//                            context,
+//                            "img uploaded successfully",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        val intent = Intent(activity?.applicationContext, PlantIdentifyActivity::class.java)
+//                        intent.putExtra("urlImg", jsonObject.getString("img"))
+//                        startActivity(intent)
+//                    }
+//                } catch (e: JSONException) {
+//                    // Error occurred while parsing the response
+//                    activity?.runOnUiThread {
+//                        Toast.makeText(
+//                            context,
+//                            "Failed to upload plant data",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                }
+//            }
+//        })
+//    }
+
+    private fun uploadPlantData(token: String) {
+        val photoFile = File(currentPhotoPath)
+
+        if (!photoFile.exists() || !photoFile.isFile) {
+            // The photo file does not exist or is not a valid file
+            Toast.makeText(
+                context,
+                "Error: Photo file not found",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val requestFile: RequestBody =
+            photoFile.asRequestBody("image/*".toMediaTypeOrNull())
+        val photoPart: MultipartBody.Part =
+            MultipartBody.Part.createFormData("photo", photoFile.name, requestFile)
+
+        val requestBody: RequestBody = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addPart(photoPart)
+            .build()
+
+        val url = ApiConfig.PLANT_SCAN_ENDPOINT
+
+        val request = Request.Builder()
+            .url(url)
+            .header("Authorization", "Bearer $token")
+            .post(requestBody)
+            .build()
+
+        val client = OkHttpClient()
+        client.newCall(request).enqueue(object : okhttp3.Callback {
+            override fun onFailure(call: okhttp3.Call, e: IOException) {
+                // Handle the request failure
+                activity?.runOnUiThread {
+                    Toast.makeText(
+                        context,
+                        "Failed to upload plant data: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                val responseBody = response.body?.string()
+                Log.e("WS", responseBody.toString())
+                if (response.isSuccessful) {
+                    try {
+                        val jsonObject = JSONObject(responseBody)
+                        val imgUrl = jsonObject.optString("img")
+                        if (!imgUrl.isNullOrEmpty()) {
+                            // Handle the successful response with imgUrl
+                            activity?.runOnUiThread {
+                                Toast.makeText(
+                                    context,
+                                    "Image uploaded successfully",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                val intent = Intent(
+                                    activity?.applicationContext,
+                                    PlantIdentifyActivity::class.java
+                                )
+                                intent.putExtra("urlImg", imgUrl)
+                                startActivity(intent)
+                            }
+                        } else {
+                            // Handle the case when "img" is missing or empty in the response
+                            activity?.runOnUiThread {
+                                Toast.makeText(
+                                    context,
+                                    "Error: Invalid response from server",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    } catch (e: JSONException) {
+                        // Error occurred while parsing the response JSON
+                        activity?.runOnUiThread {
+                            Toast.makeText(
+                                context,
+                                "Error: Failed to parse server response",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                } else {
+                    // Handle non-successful response (e.g., HTTP status code is not 200)
+                    activity?.runOnUiThread {
+                        Toast.makeText(
+                            context,
+                            "Error: ${response.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+        })
     }
 
     companion object {

@@ -27,16 +27,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="10dp"
                 android:textAlignment="center"
                 android:text="Veuillez sélectionner parmi les plantes que vous avez enregistrées celle qui fait l'objet de cette demande de garde" />
 
             <Spinner
                 android:id="@+id/spinnerPlantes"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="60dp" />
 
 
             <EditText

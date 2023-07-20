@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
 import dev.munderstand.pc_epsi_mspr_app.R
 import dev.munderstand.pc_epsi_mspr_app.activities.common.BaseActivity
-import dev.munderstand.pc_epsi_mspr_app.activities.common.SettingsActivity
 
 class PlantDetailsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

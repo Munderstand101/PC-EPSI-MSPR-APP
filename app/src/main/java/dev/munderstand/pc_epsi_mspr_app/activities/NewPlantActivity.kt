@@ -190,7 +190,7 @@ class NewPlantActivity : AppCompatActivity() {
             .post(requestBody)
             .build()
 
-        println("coucou")
+        Log.e("WS", photoFile.absolutePath)
 
         // Send the request asynchronously
         client.newCall(request).enqueue(object : okhttp3.Callback {

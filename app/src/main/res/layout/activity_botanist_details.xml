@@ -5,112 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center"
->
-  <LinearLayout
-      android:orientation="vertical"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content">
-    <LinearLayout
-        android:padding="8dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent">
-          <ImageView
-              android:id="@drawable/ic_prev_night"
-              android:layout_width="40dp"
-              android:layout_height="25dp"
-              android:layout_alignParentStart="true"
-              android:layout_alignParentTop="true"
-              android:layout_marginStart="15dp"
-              android:layout_marginTop="17dp"
+    android:orientation="vertical">
 
-              app:srcCompat="@drawable/ic_prev" />
-
-<!--          <ImageView-->
-<!--              android:id="@+id/iv_Right_Arrow"-->
-<!--              android:layout_width="40dp"-->
-<!--              android:layout_height="25dp"-->
-<!--              android:layout_alignParentTop="true"-->
-<!--              android:layout_alignParentEnd="true"-->
-<!--              android:layout_marginTop="17dp"-->
-<!--              android:layout_marginEnd="15dp"-->
-<!--              android:layout_marginBottom="44dp"-->
-
-<!--              app:srcCompat="@drawable/ic_edit_black" />-->
-
-          <TextView
-              android:id="@+id/textViewImageText"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentTop="true"
-              android:layout_centerHorizontal="true"
-              android:layout_marginTop="20dp"
-              android:text="Profil botaniste"
-              android:textColor="#000"
-              android:textSize="20sp"
-              android:top="10dp" />
-
-
-<!--        <ImageView-->
-<!--            android:padding="5dp"-->
-<!--            android:layout_alignParentStart="true"-->
-<!--            android:src="@drawable/ic_prev_night"-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"/>-->
-
-<!--        <ImageView-->
-<!--            android:layout_width="45dp"-->
-<!--            android:layout_height="45dp"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_marginStart="5dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:layout_marginEnd="41dp"-->
-<!--            android:layout_marginBottom="5dp"-->
-<!--            android:padding="1dp"-->
-<!--            android:src="@drawable/ic_prev_night" />-->
-
-<!--        <ImageView-->
-<!--            android:layout_margin="5dp"-->
-<!--            android:padding="1dp"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:src="@drawable/ic_prev_night"-->
-<!--            android:layout_width="45dp"-->
-<!--            android:layout_height="45dp"/>-->
-
-      </RelativeLayout>
-
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-<!--      <TextView-->
-<!--          android:text="My"-->
-<!--          android:textStyle="normal"-->
-<!--          android:textColor="@color/white"-->
-<!--          android:textSize="30sp"-->
-<!--          android:layout_marginStart="15dp"-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="wrap_content"/>-->
-<!--      <TextView-->
-<!--          android:text="Profile"-->
-<!--          android:textStyle="bold"-->
-<!--          android:textColor="@color/white"-->
-<!--          android:textSize="33sp"-->
-<!--          android:layout_marginStart="15dp"-->
-<!--          android:layout_width="match_parent"-->
-<!--          android:layout_height="wrap_content"/>-->
-
-
-    </LinearLayout>
-
-
-  </LinearLayout>
+    <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/layout_header" />
 
     <RelativeLayout
         android:layout_marginTop="20dp"
@@ -160,6 +60,7 @@
                         android:textColor="#5C5A5A"
                         android:textSize="13sp"
                         android:textStyle="normal" />
+
                     <TextView
                         android:id="@+id/textViewAddress"
                         android:layout_width="match_parent"
@@ -226,16 +127,9 @@
 
 
                     </LinearLayout>
-
-
                 </LinearLayout>
-
-
             </androidx.cardview.widget.CardView>
-
-
         </RelativeLayout>
-
 
         <ImageView
             android:id="@+id/imageViewBotanist"
@@ -267,6 +161,11 @@
     </LinearLayout>
   </ScrollView>
 
+    <Button
+            android:text="Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button" />
 
 
 </LinearLayout>

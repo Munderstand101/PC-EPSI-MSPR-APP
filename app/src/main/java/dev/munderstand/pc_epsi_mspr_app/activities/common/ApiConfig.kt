@@ -17,6 +17,7 @@ class ApiConfig {
 
         const val PLANTS_ENDPOINT = "$BASE_URL_API/plante/"
         const val PLANT_ADD_ENDPOINT = "$BASE_URL_API/plante/add"
+        const val PLANT_SCAN_ENDPOINT = "$BASE_URL_API/plante/scan"
 
         const val BOTANIST_ENDPOINT = "$BASE_URL_API/botanist/"
 

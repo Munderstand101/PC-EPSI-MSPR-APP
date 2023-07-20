@@ -23,6 +23,7 @@ import android.widget.ScrollView
 import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import dev.munderstand.pc_epsi_mspr_app.R
+import dev.munderstand.pc_epsi_mspr_app.activities.AnnoncesActivity
 import dev.munderstand.pc_epsi_mspr_app.activities.CreateAnnonceActivity
 import dev.munderstand.pc_epsi_mspr_app.activities.MyRequestsActivity
 import dev.munderstand.pc_epsi_mspr_app.activities.NewPlantActivity
@@ -56,121 +57,31 @@ class AcceuilFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_acceuil, container, false)
     }
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: PlantAdapter
-    private lateinit var swipeRefreshLayout: LinearLayout
-    private val items = mutableListOf<Plant>()
-    private lateinit var usernameTextView: TextView
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         val messagesButton = view.findViewById<Button>(R.id.messagesButton)
         val newRequestButton = view.findViewById<Button>(R.id.newRequestButton)
         val getRequestsButton = view.findViewById<Button>(R.id.getRequestsButton)
 
-    private var accountId: String = ""
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
-
-        recyclerView = view.findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        adapter = PlantAdapter(items)
-        recyclerView.adapter = adapter
-
-        val buttonAddRequest = view.findViewById<Button>(R.id.buttonAddRequest)
-        val buttonMyRequests = view.findViewById<Button>(R.id.buttonMyRequests)
         val myScrollView = view.findViewById<ScrollView>(R.id.scrollView)
         myScrollView.post {
             myScrollView.fullScroll(View.FOCUS_DOWN)
         }
 
-        val sharedPreferences = activity?.getSharedPreferences("account", Context.MODE_PRIVATE)
-        val accountInfo = sharedPreferences?.getString("accountInfo", "")
         messagesButton.setOnClickListener {
 
-        val token = sharedPreferences?.getString("token", "")
         }
 
-        if (accountInfo.isNullOrEmpty()) {
-            // Handle the case when there is no account info
-            Toast.makeText(activity, "No account info available", Toast.LENGTH_SHORT).show()
-        } else {
-            try {
-                val jsonObject = JSONObject(accountInfo)
-                accountId = jsonObject.getInt("id").toString()
-                fetchPlantes(accountId, token.toString())
-
-                usernameTextView = view.findViewById(R.id.text_user_name)
-                val imageViewBotanist = view.findViewById<ImageView>(R.id.image_user)
-                val textRole = view.findViewById<TextView>(R.id.textRole)
         newRequestButton.setOnClickListener {
-
-        }
-
-                val username = jsonObject.getString("username")
-                val pictureUrl = jsonObject.getString("picture_url")
-        getRequestsButton.setOnClickListener {
-
-                // Set the account info to the respective TextViews
-                usernameTextView.text = username.toString()
-                textRole.text = "Role : Utilisateur normal"
-
-                if (!pictureUrl.isNullOrEmpty()) {
-                    Picasso.get().load(pictureUrl).into(imageViewBotanist)
-                } else {
-                    // Load a fallback image if pictureUrl is empty
-                    Picasso.get().load(R.drawable.ic_growing_plant_black).into(imageViewBotanist)
-                }
-            } catch (e: JSONException) {
-                e.printStackTrace()
-            }
-        }
-
-        buttonAddRequest.setOnClickListener {
             val intent = Intent(activity?.applicationContext, CreateAnnonceActivity::class.java)
             startActivity(intent)
         }
 
-        buttonMyRequests.setOnClickListener {
-            val intent = Intent(activity?.applicationContext, MyRequestsActivity::class.java)
+        getRequestsButton.setOnClickListener {
+            val intent = Intent(activity?.applicationContext, AnnoncesActivity::class.java)
             startActivity(intent)
         }
-    }
-
-    private fun fetchPlantes(user_id: String, token: String) {
-
-        val queue = Volley.newRequestQueue(activity)
-        val url = ApiConfig.PLANTS_ENDPOINT + user_id
-
-        val jsonArrayRequest = object : JsonArrayRequest(
-            Request.Method.GET, url, null,
-            { response ->
-                try {
-                    items.clear() // Clear the previous data before adding new data
-                    for (i in 0 until response.length()) {
-                        val item = response.getJSONObject(i)
-                        val id = item.getInt("id")
-                        val name = item.getString("name")
-                        val description = item.getString("description")
-                        val pictureUrl = ApiConfig.BASE_URL_PHOTOS + item.getString("photo")
-                        items.add(Plant(id, name, description, pictureUrl))
-                    }
-                    adapter.notifyDataSetChanged()
-                } catch (e: JSONException) {
-                    Log.e(TAG, "Error parsing JSON", e)
-                }
-            },
-            { error ->
-                Log.e(TAG, "Error fetching data", error)
-            }) {
-            override fun getHeaders(): MutableMap<String, String> {
-                val headers = HashMap<String, String>()
-                headers["Authorization"] = "Bearer $token"
-                return headers
-            }
-        }
-
-        queue.add(jsonArrayRequest)
     }
 
     companion object {

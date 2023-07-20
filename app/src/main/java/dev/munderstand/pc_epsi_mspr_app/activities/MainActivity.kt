@@ -40,11 +40,8 @@ class MainActivity : BaseActivity() {
                     replaceFragment(PlantesFragment())
                     true
                 }
-                R.id.tabAnnonces -> {
-                    replaceFragment(AnnoncesFragment())
                 R.id.tabAccount -> {
                     replaceFragment(AccountFragment())
-                    setHeaderTxt("Account")
                     true
                 }
                 else -> false
